@@ -1193,6 +1193,57 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (type === 'logo') {
+      setIsSavingLogo(true);
+      api.uploadImage(file)
+        .then((res) => {
+          if (res?.url) {
+            setSiteLogoUrl(res.url);
+            handleSaveLogoDirectly(res.url);
+          } else {
+            throw new Error('Servidor não retornou a URL da imagem');
+          }
+        })
+        .catch((err) => {
+          console.warn('Falha no upload direto via servidor, usando otimizador local:', err);
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const img = new window.Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              let width = img.width;
+              let height = img.height;
+              const MAX_WIDTH = 400;
+              const MAX_HEIGHT = 200;
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.drawImage(img, 0, 0, width, height);
+                const isPng = file.type === 'image/png' || file.type === 'image/svg+xml' || file.type === 'image/webp';
+                const logoBase64 = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.85);
+                setSiteLogoUrl(logoBase64);
+                handleSaveLogoDirectly(logoBase64);
+              }
+            };
+            img.src = event.target?.result as string;
+          };
+          reader.readAsDataURL(file);
+        })
+        .finally(() => {
+          setIsSavingLogo(false);
+        });
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (event) => {
       const img = new window.Image();
@@ -1222,14 +1273,6 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
         const ctx = canvas.getContext('2d');
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          
-          if (type === 'logo') {
-            const isPng = file.type === 'image/png' || file.type === 'image/svg+xml' || file.type === 'image/webp';
-            const logoBase64 = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.9);
-            setSiteLogoUrl(logoBase64);
-            handleSaveLogoDirectly(logoBase64);
-            return;
-          }
 
           // Compress to JPEG 0.75 for highly efficient storage and lightning-fast loading
           const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);

@@ -556,15 +556,15 @@ app.post('/api/admin/upload', sessionAuthMiddleware, async (req, res) => {
 
   // 1. EXTENSION CHECK
   const ext = path.extname(fileName).toLowerCase();
-  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.svg'];
   if (!allowedExtensions.includes(ext)) {
-    return res.status(400).json({ error: 'Extensão de arquivo não permitida. Use apenas JPG, JPEG, PNG ou WEBP.' });
+    return res.status(400).json({ error: 'Extensão de arquivo não permitida. Use apenas JPG, JPEG, PNG, WEBP ou SVG.' });
   }
 
   // 2. MIME TYPE CHECK
-  const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+  const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
   if (!allowedMimeTypes.includes(fileType)) {
-    return res.status(400).json({ error: 'Tipo MIME inválido. O arquivo deve ser uma imagem.' });
+    return res.status(400).json({ error: 'Tipo MIME inválido. O arquivo deve ser uma imagem (JPG, PNG, WEBP ou SVG).' });
   }
 
   // 3. SIZE CHECK (Max 5MB)
@@ -616,6 +616,7 @@ app.get('/api/uploads/:id', (req, res) => {
   let contentType = 'image/jpeg';
   if (ext === '.png') contentType = 'image/png';
   if (ext === '.webp') contentType = 'image/webp';
+  if (ext === '.svg') contentType = 'image/svg+xml';
 
   res.setHeader('Content-Type', contentType);
   res.setHeader('Cache-Control', 'public, max-age=86400');
