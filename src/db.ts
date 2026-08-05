@@ -86,7 +86,7 @@ async function runInit() {
   try {
     await dbRun(`PRAGMA journal_mode = WAL;`);
     await dbRun(`PRAGMA synchronous = NORMAL;`);
-    await dbRun(`PRAGMA cache_size = -64000;`); // 64MB memory cache
+    await dbRun(`PRAGMA cache_size = -8000;`); // 8MB memory cache (optimized for low RAM footprint)
     await dbRun(`PRAGMA temp_store = MEMORY;`);
   } catch (e: any) {
     if (e && (e.message?.includes('SQLITE_CORRUPT') || e.message?.includes('corrupt') || e.code === 'SQLITE_CORRUPT')) {

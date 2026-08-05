@@ -84,6 +84,16 @@ interface RateLimitInfo {
 }
 const rateLimiterStore = new Map<string, RateLimitInfo>();
 
+// Periodic cleanup of expired rate-limit entries every 10 minutes to prevent RAM growth
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, info] of rateLimiterStore.entries()) {
+    if (now > info.resetTime) {
+      rateLimiterStore.delete(key);
+    }
+  }
+}, 10 * 60 * 1000).unref();
+
 const customRateLimiter = (options: { max: number; windowMs: number }) => {
   return (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const ip = req.headers['x-forwarded-for']?.toString() || req.socket.remoteAddress || '127.0.0.1';
