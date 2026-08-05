@@ -2,7 +2,12 @@ import express from 'express';
 import compression from 'compression';
 import path from 'path';
 import fs from 'fs';
+import v8 from 'v8';
 import { createServer as createViteServer } from 'vite';
+
+try {
+  v8.setFlagsFromString('--optimize_for_size');
+} catch (e) {}
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';

@@ -86,8 +86,9 @@ async function runInit() {
   try {
     await dbRun(`PRAGMA journal_mode = WAL;`);
     await dbRun(`PRAGMA synchronous = NORMAL;`);
-    await dbRun(`PRAGMA cache_size = -8000;`); // 8MB memory cache (optimized for low RAM footprint)
-    await dbRun(`PRAGMA temp_store = MEMORY;`);
+    await dbRun(`PRAGMA cache_size = -4000;`); // 4MB memory cache for SQLite (ultra-light RAM usage)
+    await dbRun(`PRAGMA mmap_size = 0;`); // Disable memory-mapped I/O to avoid RAM overhead
+    await dbRun(`PRAGMA temp_store = FILE;`); // Store temporary tables in file instead of RAM cache
   } catch (e: any) {
     if (e && (e.message?.includes('SQLITE_CORRUPT') || e.message?.includes('corrupt') || e.code === 'SQLITE_CORRUPT')) {
       throw e;
