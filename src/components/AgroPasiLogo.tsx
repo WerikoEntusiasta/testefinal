@@ -8,7 +8,7 @@ interface AgroPasiLogoProps {
   logoUrl?: string;
 }
 
-const DEFAULT_LOGO_URL = '/agropasi-logo.png';
+const DEFAULT_LOGO_URL = 'https://i.ibb.co/fGtfCqR2/Design-sem-nome-removebg-preview.png';
 
 function normalizeLogoUrl(url?: string): string {
   if (!url || !url.trim()) return DEFAULT_LOGO_URL;
@@ -17,9 +17,11 @@ function normalizeLogoUrl(url?: string): string {
     url.includes('ibb.co/dJ6FQj9') ||
     url.includes('ibb.co/cqGr40S') ||
     url.includes('ibb.co/23HM5cz2') ||
-    url.includes('ibb.co/23HM5cz')
+    url.includes('ibb.co/23HM5cz') ||
+    url.includes('/agropasi-logo.jpg') ||
+    url.includes('/agropasi-logo.png')
   ) {
-    return '/agropasi-logo.png';
+    return DEFAULT_LOGO_URL;
   }
   return url.trim();
 }

@@ -377,13 +377,13 @@ async function runInit() {
         'Menos Café no Chão. Mais Economia de Diesel. Mais Lucro na Colheita.',
         'Não somos estreantes. A AgroPasi carrega 60 anos de indústria familiar para dentro do campo. Cada implemento que fabricamos nasce com um objetivo claro: trabalhar mais com menos combustível — e deixar menos café no chão.',
         'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1600',
-        '/agropasi-logo.jpg'
+        'https://i.ibb.co/fGtfCqR2/Design-sem-nome-removebg-preview.png'
       ]
     );
   } else {
     // Always ensure existing hero has valid logoUrl pointing to official logo
     await dbRun(
-      "UPDATE cms_hero SET logoUrl = '/agropasi-logo.jpg' WHERE logoUrl IS NULL OR logoUrl = '' OR logoUrl LIKE 'data:%' OR logoUrl LIKE '%ibb.co/23HM5cz2%'"
+      "UPDATE cms_hero SET logoUrl = 'https://i.ibb.co/fGtfCqR2/Design-sem-nome-removebg-preview.png'"
     );
   }
 

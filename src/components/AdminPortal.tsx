@@ -578,7 +578,7 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
       finalUrl.includes('ibb.co/23HM5cz2') ||
       finalUrl.includes('ibb.co/23HM5cz')
     ) {
-      finalUrl = '/agropasi-logo.png';
+      finalUrl = 'https://i.ibb.co/fGtfCqR2/Design-sem-nome-removebg-preview.png';
     }
     try {
       await api.saveLogo(finalUrl);

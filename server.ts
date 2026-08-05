@@ -1067,7 +1067,7 @@ app.post('/api/admin/cms/logo', sessionAuthMiddleware, async (req, res) => {
       logoUrl.includes('ibb.co/23HM5cz2') ||
       logoUrl.includes('ibb.co/23HM5cz'))
   ) {
-    logoUrl = '/agropasi-logo.png';
+    logoUrl = 'https://i.ibb.co/fGtfCqR2/Design-sem-nome-removebg-preview.png';
   }
 
   try {
