@@ -8,7 +8,7 @@ RUN apk add --no-cache python3 make g++ gcc
 
 # Copy package manifests and install all dependencies (including devDependencies)
 COPY package*.json ./
-RUN npm ci
+RUN npm install --no-audit --no-fund
 
 # Copy full application source code
 COPY . .
@@ -27,7 +27,7 @@ ENV PORT=3000
 # Install build dependencies, install production packages, rebuild native binaries, clean cache
 COPY package*.json ./
 RUN apk add --no-cache python3 make g++ gcc && \
-    npm ci --only=production && \
+    npm install --omit=dev --no-audit --no-fund && \
     npm rebuild sqlite3 && \
     apk del python3 make g++ gcc && \
     npm cache clean --force
