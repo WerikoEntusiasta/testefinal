@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- AgroPasi Leaf Favicon -->
+  <g transform="translate(0, 0)">
+    <!-- Main Leaf Body -->
+    <path 
+      d="M 135 375 C 90 270 145 160 240 115 C 315 78 375 82 380 90 C 388 175 330 330 250 375 C 190 410 145 395 135 375 Z" 
+      fill="#d48743" 
+    />
+    <!-- Center Curved White Vein -->
+    <path 
+      d="M 140 370 C 205 270 275 200 342 175 C 265 220 195 295 140 370 Z" 
+      fill="#ffffff" 
+    />
+  </g>
+</svg>

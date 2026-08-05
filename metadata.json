@@ -1,0 +1,6 @@
+{
+  "name": "AgroPasi",
+  "description": "AgroPasi - Tecnologia, durabilidade e proximidade com o campo. Implementos e peças agrícolas de alta performance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

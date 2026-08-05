@@ -1,0 +1,712 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  /* Brand colors from official guidelines PDF */
+  --color-brand-charcoal: #262b3f;
+  --color-brand-terracotta: #d48743;
+  --color-brand-terracotta-hover: #e39a5e;
+  
+  /* Dark color override based on #262b3f */
+  --color-zinc-950: #ffffff;      /* Pure white background */
+  --color-zinc-900: #f8fafc;      /* Soft light off-white background */
+  --color-zinc-850: #f1f5f9;      /* Light gray background for cards */
+  --color-zinc-800: #e2e8f0;      /* Border colors and light panels */
+  --color-zinc-750: #cbd5e1;      /* Secondary border / disabled states */
+  --color-zinc-700: #94a3b8;      /* Muted line colors */
+  --color-zinc-650: #64748b;      /* Muted info text */
+  --color-zinc-600: #475569;      /* Mid-tone slate text */
+  --color-zinc-500: #334155;      /* Slate text */
+  --color-zinc-400: #515a81;      /* Dark blue muted text */
+  --color-zinc-300: #3b4363;      /* Dark blue medium text */
+  --color-zinc-200: #2c324a;      /* Dark blue secondary text */
+  --color-zinc-150: #262b3f;      /* Dark blue primary text */
+  --color-zinc-100: #1a1e2c;      /* Extra dark blue */
+
+  /* Overrides for dynamic themes */
+  --color-emerald-50: #fdf8f4;
+  --color-emerald-100: #fbeedf;
+  --color-emerald-200: #f6d8be;
+  --color-emerald-300: #eebe95;
+  --color-emerald-400: #e39a5e;
+  --color-emerald-450: #d48743;
+  --color-emerald-500: #d48743;
+  --color-emerald-600: #c27a41;
+  --color-emerald-750: #b06b33;
+  --color-emerald-700: #9d5d28;
+  --color-emerald-800: #7e4a20;
+  --color-emerald-900: #623a1a;
+  --color-emerald-950: #2d1808;
+
+  --color-amber-50: #fdf8f4;
+  --color-amber-100: #fbeedf;
+  --color-amber-200: #f6d8be;
+  --color-amber-300: #eebe95;
+  --color-amber-400: #e39a5e;
+  --color-amber-450: #d48743;
+  --color-amber-500: #d48743;
+  --color-amber-600: #c27a41;
+  --color-amber-750: #b06b33;
+  --color-amber-700: #9d5d28;
+  --color-amber-800: #7e4a20;
+  --color-amber-900: #623a1a;
+  --color-amber-950: #2d1808;
+
+  --color-orange-50: #fdf8f4;
+  --color-orange-100: #fbeedf;
+  --color-orange-200: #f6d8be;
+  --color-orange-300: #eebe95;
+  --color-orange-400: #e39a5e;
+  --color-orange-450: #d48743;
+  --color-orange-500: #d48743;
+  --color-orange-600: #c27a41;
+  --color-orange-750: #b06b33;
+  --color-orange-700: #9d5d28;
+  --color-orange-800: #7e4a20;
+  --color-orange-900: #623a1a;
+  --color-orange-950: #2d1808;
+}
+
+/* Custom micro animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Targeted Styles for Blue #262b3f Brand Integration */
+
+/* 1. Navigation Guide Buttons */
+#sobre-btn, #produtos-btn, #calculadora-btn, #compatibilidade-btn, #galeria-btn, #faq-btn, #blog-btn, #contato-btn {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(38, 43, 63, 0.2) !important;
+  color: #262b3f !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+#sobre-btn:hover, #produtos-btn:hover, #calculadora-btn:hover, #compatibilidade-btn:hover, #galeria-btn:hover, #faq-btn:hover, #blog-btn:hover, #contato-btn:hover {
+  background-color: #262b3f !important;
+  border-color: #262b3f !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(38, 43, 63, 0.15) !important;
+}
+
+#sobre-btn:hover *, #produtos-btn:hover *, #calculadora-btn:hover *, #compatibilidade-btn:hover *, #galeria-btn:hover *, #faq-btn:hover *, #blog-btn:hover *, #contato-btn:hover * {
+  color: #ffffff !important;
+}
+
+/* 2. Company About Section (Sobre) */
+section#sobre {
+  background-color: #ffffff !important;
+  color: #262b3f !important;
+}
+
+section#sobre h2, section#sobre h3, section#sobre h4 {
+  color: #262b3f !important;
+}
+
+section#sobre p, section#sobre span {
+  color: #515a81 !important;
+}
+
+section#sobre span.text-white {
+  color: #ffffff !important;
+}
+
+section#sobre div.my-16 {
+  background-color: #f8fafc !important;
+  border: 1.5px solid rgba(38, 43, 63, 0.15) !important;
+  color: #262b3f !important;
+  box-shadow: 0 4px 20px rgba(38, 43, 63, 0.05) !important;
+}
+
+section#sobre div.my-16 h3 {
+  color: #262b3f !important;
+}
+
+section#sobre div.my-16 p, section#sobre div.my-16 span {
+  color: #515a81 !important;
+}
+
+section#sobre div.my-16 .grid .bg-\[\#1a1e2c\]\/80 {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(38, 43, 63, 0.12) !important;
+}
+
+section#sobre div.my-16 .grid .bg-\[\#1a1e2c\]\/80 strong {
+  color: #262b3f !important;
+}
+
+section#sobre div.my-16 .grid .bg-\[\#1a1e2c\]\/80 span {
+  color: #515a81 !important;
+}
+
+/* 3. Products Section (Colhedora Card & Details) */
+#colhedora {
+  background: #ffffff !important;
+  border-color: rgba(38, 43, 63, 0.15) !important;
+  box-shadow: 0 4px 15px rgba(38, 43, 63, 0.03) !important;
+}
+
+#colhedora h3 {
+  color: #262b3f !important;
+}
+
+#colhedora p {
+  color: #515a81 !important;
+}
+
+#colhedora span {
+  color: #262b3f !important;
+  background-color: #f8fafc !important;
+  border-color: rgba(38, 43, 63, 0.1) !important;
+}
+
+#colhedora svg {
+  color: #262b3f !important;
+}
+
+/* --- Clean Up Light Theme Card Backgrounds (Exclusive to Light Sections) --- */
+#inicio .bg-zinc-950, #inicio .bg-zinc-900,
+#sobre .bg-zinc-950, #sobre .bg-zinc-900,
+#sobre .bg-zinc-900\/90, #sobre .bg-zinc-900\/40,
+#contato .bg-zinc-950, #contato .bg-zinc-900, #contato .bg-zinc-950\/40, #contato .bg-zinc-900\/90,
+#galeria .bg-zinc-950, #galeria .bg-zinc-900,
+#blog .bg-zinc-950, #blog .bg-zinc-900 {
+  background-color: #ffffff !important;
+}
+
+/* Subtle, light border styling for light sections to avoid any black lines */
+#inicio div, #inicio section, #inicio button, #inicio input,
+#sobre div, #sobre section, #sobre button,
+#contato div, #contato section, #contato button, #contato input, #contato textarea, #contato select,
+#galeria div, #galeria section, #galeria button,
+#blog div, #blog section, #blog article {
+  border-color: rgba(38, 43, 63, 0.08) !important;
+}
+
+.border, .border-t, .border-b, .border-r, .border-l,
+.border-zinc-200, .border-zinc-300, .border-zinc-700, .border-zinc-800, .border-zinc-850 {
+  border-color: rgba(38, 43, 63, 0.08) !important;
+}
+
+/* --- Contact Section (#contato) - Beautifully Polished Light Theme --- */
+section#contato {
+  background-color: #ffffff !important;
+  color: #262b3f !important;
+}
+
+section#contato h2, section#contato h3, section#contato h4 {
+  color: #262b3f !important;
+  font-weight: 700 !important;
+}
+
+section#contato p, section#contato label, section#contato span {
+  color: #515a81 !important;
+}
+
+section#contato span#agropasi-brand {
+  color: #d48743 !important;
+}
+
+section#contato span#whatsapp-badge {
+  color: #ffffff !important;
+}
+
+section#contato a#phone-link,
+section#contato a#email-link,
+section#contato address {
+  color: #262b3f !important;
+  font-weight: 600 !important;
+}
+
+section#contato input,
+section#contato textarea,
+section#contato select {
+  background-color: #ffffff !important;
+  color: #262b3f !important;
+  border: 1px solid rgba(38, 43, 63, 0.15) !important;
+}
+
+section#contato input:focus,
+section#contato textarea:focus,
+section#contato select:focus {
+  border-color: #d48743 !important;
+  outline: none !important;
+}
+
+/* Representative Result Card / CEP Finder Card */
+section#contato .bg-emerald-100\/50,
+section#contato div.p-5.rounded-2xl {
+  background-color: #f8fafc !important;
+  border: 1px solid rgba(38, 43, 63, 0.12) !important;
+}
+
+section#contato div.p-5.rounded-2xl span,
+section#contato div.p-5.rounded-2xl p,
+section#contato div.p-5.rounded-2xl svg {
+  color: #262b3f !important;
+}
+
+section#contato button#submit-lead,
+section#contato form button {
+  background-color: #d48743 !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+section#contato button#submit-lead:hover,
+section#contato form button:hover {
+  background-color: #c27a41 !important;
+  box-shadow: 0 4px 12px rgba(212, 135, 67, 0.15) !important;
+}
+
+
+/* --- Product Action Gallery Section (#galeria) --- */
+section#galeria {
+  background-color: #ffffff !important;
+  color: #262b3f !important;
+}
+
+section#galeria h2 {
+  color: #262b3f !important;
+  font-weight: 700 !important;
+}
+
+section#galeria p {
+  color: #515a81 !important;
+}
+
+
+/* --- Rural Blog Section (#blog) --- */
+section#blog {
+  background-color: #f8fafc !important;
+}
+
+section#blog h2, section#blog h3 {
+  color: #262b3f !important;
+  font-weight: 700 !important;
+}
+
+section#blog p {
+  color: #515a81 !important;
+}
+
+section#blog article {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(38, 43, 63, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(38, 43, 63, 0.02) !important;
+}
+
+
+/* ==========================================================================
+   ELEGANT DARK-BLUE HIGHLIGHT SECTIONS (Produtos, Calculadora, FAQ)
+   ========================================================================== */
+
+/* 1. Products Catalog Section (#produtos) */
+section#produtos {
+  background-color: #262b3f !important;
+  color: #f1f5f9 !important;
+}
+
+section#produtos h2 {
+  color: #ffffff !important;
+}
+
+section#produtos p {
+  color: #cbd5e1 !important;
+}
+
+/* Products cards inside dark-blue highlight section */
+section#produtos div[id^="product-card-"] {
+  background-color: #1a1e2c !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+section#produtos div[id^="product-card-"]:hover {
+  border-color: #d48743 !important;
+}
+
+section#produtos div[id^="product-card-"] h3 {
+  color: #ffffff !important;
+}
+
+section#produtos div[id^="product-card-"] p {
+  color: #cbd5e1 !important;
+}
+
+section#produtos div[id^="product-card-"] span {
+  color: #ffffff !important;
+}
+
+section#produtos div[id^="product-card-"] .text-[#d48743] {
+  color: #e39a5e !important;
+}
+
+section#produtos .bg-zinc-950,
+section#produtos .bg-zinc-900 {
+  background-color: #1a1e2c !important;
+}
+
+section#produtos .bg-zinc-950\/50 {
+  background-color: rgba(26, 30, 44, 0.5) !important;
+}
+
+/* Custom products cards (loaded from localstorage) */
+section#produtos .grid > div {
+  background-color: #1a1e2c !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+section#produtos .grid > div h3,
+section#produtos .grid > div span,
+section#produtos .grid > div p {
+  color: #ffffff !important;
+}
+
+section#produtos .grid > div p {
+  color: #cbd5e1 !important;
+}
+
+
+/* 2. Savings Calculator Section (#calculadora) */
+section#calculadora {
+  background-color: #262b3f !important;
+  color: #f1f5f9 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+section#calculadora h2 {
+  color: #ffffff !important;
+}
+
+section#calculadora p {
+  color: #cbd5e1 !important;
+}
+
+/* Calculator Cards (Inputs and Results) */
+section#calculadora .bg-zinc-900,
+section#calculadora .bg-zinc-900\/90,
+section#calculadora .bg-zinc-950,
+section#calculadora .bg-zinc-950\/90,
+section#calculadora .bg-zinc-900\/50,
+section#calculadora .bg-zinc-950\/80,
+section#calculadora .bg-zinc-900\/40,
+section#calculadora div.bg-zinc-900\/90 {
+  background-color: #1a1e2c !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+section#calculadora h3 {
+  color: #ffffff !important;
+}
+
+section#calculadora label {
+  color: #cbd5e1 !important;
+}
+
+section#calculadora strong {
+  color: #ffffff !important;
+}
+
+section#calculadora span {
+  color: #ffffff !important;
+}
+
+section#calculadora .text-zinc-300 {
+  color: #e2e8f0 !important;
+}
+
+/* Form Controls Inside Calculator */
+section#calculadora input[type="number"],
+section#calculadora select {
+  background-color: #131622 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+section#calculadora input[type="number"]:focus,
+section#calculadora select:focus {
+  border-color: #d48743 !important;
+  outline: none !important;
+}
+
+section#calculadora input[type="range"] {
+  accent-color: #d48743 !important;
+}
+
+/* Key Metrics Accents */
+section#calculadora span.text-amber-800,
+section#calculadora .text-amber-800 {
+  color: #ffffff !important;
+  background-color: #d48743 !important;
+}
+
+
+/* 3. FAQ Section (#faq) */
+section#faq {
+  background-color: #262b3f !important;
+  color: #f1f5f9 !important;
+}
+
+section#faq h2,
+section#faq h4,
+section#faq #faq-help-heading {
+  color: #ffffff !important;
+}
+
+section#faq p {
+  color: #cbd5e1 !important;
+}
+
+/* Accordion cards and headers */
+section#faq .bg-zinc-900,
+section#faq .bg-zinc-950\/40,
+section#faq .border-zinc-800,
+section#faq .border-zinc-850 {
+  background-color: #1a1e2c !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+section#faq button span {
+  color: #ffffff !important;
+}
+
+section#faq button:hover span {
+  color: #d48743 !important;
+}
+
+
+/* ==========================================================================
+   ADMIN PORTAL WORKSPACE (Dark Theme)
+   ========================================================================== */
+.admin-portal-dark {
+  background-color: #0b0f19 !important; /* Deep space black */
+  color: #f8fafc !important; /* Crisp off-white */
+}
+
+/* Header & Sidebar Container Styling */
+.admin-portal-dark header {
+  background-color: #0f172a !important; /* Elegant slate 900 */
+  border-bottom: 1.5px solid #1e293b !important;
+}
+
+.admin-portal-dark aside {
+  background-color: #0b0f19 !important; /* Match background for seamless clean sidebar */
+  border-right: 1.5px solid #1e293b !important;
+}
+
+/* Alternate Panels, Cards and Content Blocks inside Admin Workspace */
+.admin-portal-dark .bg-zinc-950,
+.admin-portal-dark .bg-zinc-900,
+.admin-portal-dark .bg-zinc-850,
+.admin-portal-dark .bg-slate-900,
+.admin-portal-dark .bg-slate-950,
+.admin-portal-dark .bg-\[\#262b3f\],
+.admin-portal-dark .bg-\[\#1a1e2c\],
+.admin-portal-dark .bg-\[\#1a1e2c\]\/80,
+.admin-portal-dark .bg-\[\#1a1e2c\]\/60,
+.admin-portal-dark .bg-\[\#1a1e2c\]\/30,
+.admin-portal-dark .bg-zinc-900\/90,
+.admin-portal-dark .bg-zinc-900\/50,
+.admin-portal-dark .bg-zinc-950\/80,
+.admin-portal-dark .bg-zinc-950\/50,
+.admin-portal-dark .bg-emerald-950\/20,
+.admin-portal-dark div.bg-zinc-900\/90 {
+  background-color: #111827 !important; /* Dark Slate-Gray Card base */
+  border-color: #1e293b !important;
+}
+
+/* Nested section details & inner containers */
+.admin-portal-dark .bg-zinc-900 .bg-zinc-950,
+.admin-portal-dark .bg-zinc-900 .bg-zinc-850 {
+  background-color: #1f2937 !important; /* Standard card background layering */
+}
+
+/* Text elements color overrides for maximum readibility and contrast */
+.admin-portal-dark p,
+.admin-portal-dark span,
+.admin-portal-dark h1,
+.admin-portal-dark h2,
+.admin-portal-dark h3,
+.admin-portal-dark h4,
+.admin-portal-dark h5,
+.admin-portal-dark h6,
+.admin-portal-dark li,
+.admin-portal-dark label,
+.admin-portal-dark strong,
+.admin-portal-dark code,
+.admin-portal-dark td,
+.admin-portal-dark th {
+  color: #f8fafc !important; /* Base white/off-white */
+}
+
+/* Muted secondary descriptions (replacing dark light-theme colors) */
+.admin-portal-dark .text-zinc-400,
+.admin-portal-dark .text-zinc-500,
+.admin-portal-dark .text-zinc-650,
+.admin-portal-dark p.text-zinc-400,
+.admin-portal-dark span.text-zinc-400 {
+  color: #94a3b8 !important; /* High contrast Slate-Gray */
+}
+
+.admin-portal-dark .text-zinc-300,
+.admin-portal-dark .text-zinc-200,
+.admin-portal-dark span.text-zinc-300 {
+  color: #cbd5e1 !important; /* Muted warm-white */
+}
+
+/* Green and red status items readability updates */
+.admin-portal-dark .text-emerald-500,
+.admin-portal-dark .text-green-400,
+.admin-portal-dark .text-emerald-400 {
+  color: #34d399 !important; /* Bright neon emerald */
+}
+
+.admin-portal-dark .text-red-500,
+.admin-portal-dark .text-red-400 {
+  color: #f87171 !important; /* Soft high-visibility red */
+}
+
+/* Form Controls Inside Admin Panel (Fully styled and high-contrast) */
+.admin-portal-dark input,
+.admin-portal-dark textarea,
+.admin-portal-dark select {
+  background-color: #0b0f19 !important; /* Deep dark background */
+  color: #ffffff !important;
+  border: 1.5px solid #334155 !important; /* Slate border */
+  border-radius: 0.5rem !important;
+  padding: 0.625rem 1rem !important;
+}
+
+.admin-portal-dark input:focus,
+.admin-portal-dark textarea:focus,
+.admin-portal-dark select:focus {
+  border-color: #d48743 !important; /* Terracotta focus highlight */
+  box-shadow: 0 0 0 2px rgba(212, 135, 67, 0.2) !important;
+  outline: none !important;
+}
+
+/* Unified Borders to prevent black lines */
+.admin-portal-dark div,
+.admin-portal-dark section,
+.admin-portal-dark aside,
+.admin-portal-dark header,
+.admin-portal-dark table,
+.admin-portal-dark th,
+.admin-portal-dark td,
+.admin-portal-dark li,
+.admin-portal-dark .border,
+.admin-portal-dark .border-t,
+.admin-portal-dark .border-b,
+.admin-portal-dark .border-r,
+.admin-portal-dark .border-l,
+.admin-portal-dark .border-zinc-800,
+.admin-portal-dark .border-zinc-850,
+.admin-portal-dark .border-zinc-900 {
+  border-color: #1e293b !important; /* Beautiful Slate border lines */
+}
+
+/* CRM Table Elements styling */
+.admin-portal-dark table {
+  background-color: #111827 !important;
+}
+
+.admin-portal-dark th {
+  background-color: #0f172a !important;
+  border-bottom: 2px solid #1e293b !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.75rem !important;
+}
+
+.admin-portal-dark tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Sidebar Tab Buttons and Interactive States */
+.admin-portal-dark aside button {
+  background-color: transparent !important;
+  color: #94a3b8 !important;
+  border: none !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.admin-portal-dark aside button:hover {
+  background-color: rgba(212, 135, 67, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Keep active tab high contrast and brand aligned */
+.admin-portal-dark aside button.bg-\[\#d48743\] {
+  background-color: #d48743 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Custom Status Badges */
+.admin-portal-dark .bg-amber-100\/10,
+.admin-portal-dark .bg-amber-950\/30 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+.admin-portal-dark .bg-amber-100\/10 *,
+.admin-portal-dark .bg-amber-950\/30 * {
+  color: #fbbf24 !important;
+}
+
+.admin-portal-dark .bg-emerald-100\/10,
+.admin-portal-dark .bg-emerald-950\/30 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+.admin-portal-dark .bg-emerald-100\/10 *,
+.admin-portal-dark .bg-emerald-950\/30 * {
+  color: #34d399 !important;
+}
+
+.admin-portal-dark .bg-zinc-800\/40,
+.admin-portal-dark .bg-zinc-800\/50,
+.admin-portal-dark .bg-slate-800\/40 {
+  background-color: rgba(148, 163, 184, 0.15) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+}
+.admin-portal-dark .bg-zinc-800\/40 *,
+.admin-portal-dark .bg-zinc-800\/50 *,
+.admin-portal-dark .bg-slate-800\/40 * {
+  color: #cbd5e1 !important;
+}
+
+/* Close/Action buttons specifically */
+.admin-portal-dark button[title="Fechar Portal"],
+.admin-portal-dark button.absolute {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.admin-portal-dark button[title="Fechar Portal"]:hover,
+.admin-portal-dark button.absolute:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.admin-portal-dark button.absolute:hover svg {
+  color: #ffffff !important;
+}
+
