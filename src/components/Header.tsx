@@ -4,9 +4,10 @@ import AgroPasiLogo from './AgroPasiLogo';
 
 interface HeaderProps {
   onNavigate?: (hash?: string) => void;
+  logoUrl?: string;
 }
 
-export default function Header({ onNavigate }: HeaderProps) {
+export default function Header({ onNavigate, logoUrl }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -33,7 +34,7 @@ export default function Header({ onNavigate }: HeaderProps) {
           
           {/* Logo and Brand */}
           <a href="#inicio" onClick={() => handleLinkClick('#inicio')} className="flex items-center space-x-3 group shrink-0">
-            <AgroPasiLogo size="md" showSubtitle={true} />
+            <AgroPasiLogo size="md" showSubtitle={true} logoUrl={logoUrl} />
           </a>
 
           {/* Desktop Navigation */}

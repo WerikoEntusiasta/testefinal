@@ -570,17 +570,27 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
 
   const handleSaveLogoDirectly = async (urlToSave: string) => {
     setIsSavingLogo(true);
+    let finalUrl = urlToSave;
+    if (
+      finalUrl.includes('ibb.co/dJ6FQj9r') ||
+      finalUrl.includes('ibb.co/dJ6FQj9') ||
+      finalUrl.includes('ibb.co/cqGr40S') ||
+      finalUrl.includes('ibb.co/23HM5cz2') ||
+      finalUrl.includes('ibb.co/23HM5cz')
+    ) {
+      finalUrl = '/agropasi-logo.png';
+    }
     try {
-      await api.saveLogo(urlToSave);
+      await api.saveLogo(finalUrl);
       
       const storedHero = localStorage.getItem('agropasi_cms_hero');
       const parsed = storedHero ? JSON.parse(storedHero) : {};
-      parsed.logoUrl = urlToSave;
+      parsed.logoUrl = finalUrl;
       localStorage.setItem('agropasi_cms_hero', JSON.stringify(parsed));
       
       window.dispatchEvent(new Event('storage_updated'));
-      setSiteLogoUrl(urlToSave);
-      triggerToast(urlToSave ? '✓ Logo oficial salva e aplicada em todo o site com sucesso!' : '✓ Logo oficial restaurada para o padrão vetorial!');
+      setSiteLogoUrl(finalUrl);
+      triggerToast(finalUrl ? '✓ Logo oficial salva e aplicada em todo o site com sucesso!' : '✓ Logo oficial restaurada para o padrão vetorial!');
     } catch (err: any) {
       console.error('Erro ao salvar logo:', err);
       triggerToast('Erro ao salvar logo: ' + (err.message || 'Falha ao comunicar com o servidor'));

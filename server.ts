@@ -1058,7 +1058,17 @@ app.post('/api/admin/cms/logo', sessionAuthMiddleware, async (req, res) => {
     return res.status(403).json({ error: 'Acesso negado.' });
   }
 
-  const { logoUrl } = req.body;
+  let { logoUrl } = req.body;
+  if (
+    logoUrl &&
+    (logoUrl.includes('ibb.co/dJ6FQj9r') ||
+      logoUrl.includes('ibb.co/dJ6FQj9') ||
+      logoUrl.includes('ibb.co/cqGr40S') ||
+      logoUrl.includes('ibb.co/23HM5cz2') ||
+      logoUrl.includes('ibb.co/23HM5cz'))
+  ) {
+    logoUrl = '/agropasi-logo.png';
+  }
 
   try {
     const before = await dbGet('SELECT * FROM cms_hero WHERE id = ?', ['main_hero']);

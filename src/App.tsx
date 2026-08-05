@@ -25,6 +25,7 @@ export default function App() {
   });
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [view, setView] = useState<'home' | 'all-products' | 'blog'>('home');
+  const [siteLogoUrl, setSiteLogoUrl] = useState<string>('');
 
   useEffect(() => {
     const handlePopState = () => {
@@ -62,7 +63,12 @@ export default function App() {
       try {
         const data = await api.getCatalogData();
         if (data) {
-          if (data.hero) localStorage.setItem('agropasi_cms_hero', JSON.stringify(data.hero));
+          if (data.hero) {
+            localStorage.setItem('agropasi_cms_hero', JSON.stringify(data.hero));
+            if (data.hero.logoUrl) {
+              setSiteLogoUrl(data.hero.logoUrl);
+            }
+          }
           if (data.about) localStorage.setItem('agropasi_cms_about', JSON.stringify(data.about));
           if (data.faqs) localStorage.setItem('agropasi_cms_faqs', JSON.stringify(data.faqs));
           if (data.blog) localStorage.setItem('agropasi_cms_blog_posts', JSON.stringify(data.blog));
@@ -139,6 +145,7 @@ export default function App() {
       {/* Universal Sticky Header */}
       <Header 
         onNavigate={handleNavigate} 
+        logoUrl={siteLogoUrl}
       />
 
       {/* Primary Corporate Layout Row / Product Page View */}
@@ -203,7 +210,7 @@ export default function App() {
       </main>
 
       {/* Complete Footer Section */}
-      <Footer />
+      <Footer logoUrl={siteLogoUrl} />
       
     </div>
   );

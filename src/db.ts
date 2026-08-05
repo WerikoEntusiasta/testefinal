@@ -370,14 +370,20 @@ async function runInit() {
   const heroCount = await dbGet('SELECT COUNT(*) as count FROM cms_hero');
   if (heroCount && heroCount.count === 0) {
     await dbRun(
-      'INSERT INTO cms_hero (id, badge, title, description, photoUrl) VALUES (?, ?, ?, ?, ?)',
+      'INSERT INTO cms_hero (id, badge, title, description, photoUrl, logoUrl) VALUES (?, ?, ?, ?, ?, ?)',
       [
         'main_hero',
         'FAMÍLIA INDUSTRIAL DESDE 1960',
         'Menos Café no Chão. Mais Economia de Diesel. Mais Lucro na Colheita.',
         'Não somos estreantes. A AgroPasi carrega 60 anos de indústria familiar para dentro do campo. Cada implemento que fabricamos nasce com um objetivo claro: trabalhar mais com menos combustível — e deixar menos café no chão.',
-        'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1600'
+        'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1600',
+        '/agropasi-logo.jpg'
       ]
+    );
+  } else {
+    // Always ensure existing hero has valid logoUrl pointing to official logo
+    await dbRun(
+      "UPDATE cms_hero SET logoUrl = '/agropasi-logo.jpg' WHERE logoUrl IS NULL OR logoUrl = '' OR logoUrl LIKE 'data:%' OR logoUrl LIKE '%ibb.co/23HM5cz2%'"
     );
   }
 

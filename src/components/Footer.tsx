@@ -2,7 +2,11 @@ import React from 'react';
 import { Instagram, Send, MapPin, Phone, Mail, Award, ArrowUp } from 'lucide-react';
 import AgroPasiLogo from './AgroPasiLogo';
 
-export default function Footer() {
+interface FooterProps {
+  logoUrl?: string;
+}
+
+export default function Footer({ logoUrl }: FooterProps) {
   const scrollUp = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -17,7 +21,7 @@ export default function Footer() {
           {/* Logo & Slogan Column */}
           <div className="lg:col-span-4 space-y-4">
             <a href="#inicio" className="flex items-center space-x-3 group shrink-0">
-              <AgroPasiLogo size="md" variant="dark-bg" showSubtitle={true} />
+              <AgroPasiLogo size="md" variant="dark-bg" showSubtitle={true} logoUrl={logoUrl} />
             </a>
             <p className="text-xs text-zinc-400 leading-relaxed max-w-sm" style={{ color: '#ffffff' }}>
               Nascida de 60 anos de indústria familiar, a AgroPasi chegou ao campo para entregar implementos agrícolas que reduzem custos e maximizam a colheita.

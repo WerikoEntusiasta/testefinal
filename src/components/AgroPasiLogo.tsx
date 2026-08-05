@@ -8,6 +8,22 @@ interface AgroPasiLogoProps {
   logoUrl?: string;
 }
 
+const DEFAULT_LOGO_URL = '/agropasi-logo.png';
+
+function normalizeLogoUrl(url?: string): string {
+  if (!url || !url.trim()) return DEFAULT_LOGO_URL;
+  if (
+    url.includes('ibb.co/dJ6FQj9r') ||
+    url.includes('ibb.co/dJ6FQj9') ||
+    url.includes('ibb.co/cqGr40S') ||
+    url.includes('ibb.co/23HM5cz2') ||
+    url.includes('ibb.co/23HM5cz')
+  ) {
+    return '/agropasi-logo.png';
+  }
+  return url.trim();
+}
+
 export default function AgroPasiLogo({
   className = '',
   size = 'md',
@@ -15,26 +31,31 @@ export default function AgroPasiLogo({
   showSubtitle = false,
   logoUrl: propLogoUrl
 }: AgroPasiLogoProps) {
-  const [customLogoUrl, setCustomLogoUrl] = useState<string>(propLogoUrl || '');
+  const [customLogoUrl, setCustomLogoUrl] = useState<string>(normalizeLogoUrl(propLogoUrl));
+  const [imgError, setImgError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (propLogoUrl !== undefined) {
-      setCustomLogoUrl(propLogoUrl);
-      return;
-    }
-
     const checkStoredLogo = () => {
+      if (propLogoUrl && propLogoUrl.trim() !== '') {
+        setCustomLogoUrl(normalizeLogoUrl(propLogoUrl));
+        setImgError(false);
+        return;
+      }
+
       try {
         const stored = localStorage.getItem('agropasi_cms_hero');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (parsed?.logoUrl) {
-            setCustomLogoUrl(parsed.logoUrl);
+          if (parsed?.logoUrl && parsed.logoUrl.trim() !== '') {
+            setCustomLogoUrl(normalizeLogoUrl(parsed.logoUrl));
+            setImgError(false);
             return;
           }
         }
       } catch (e) {}
-      setCustomLogoUrl('');
+
+      setCustomLogoUrl(DEFAULT_LOGO_URL);
+      setImgError(false);
     };
 
     checkStoredLogo();
@@ -54,23 +75,25 @@ export default function AgroPasiLogo({
 
   // Height and text size mappings
   const sizeMap = {
-    sm: { textSize: 'text-lg', iconSize: 'w-5 h-5', subtitleSize: 'text-[7px]', imgHeight: 'h-6 sm:h-7' },
-    md: { textSize: 'text-2xl', iconSize: 'w-6 h-6', subtitleSize: 'text-[8px]', imgHeight: 'h-8 sm:h-9' },
-    lg: { textSize: 'text-3xl', iconSize: 'w-8 h-8', subtitleSize: 'text-[9px]', imgHeight: 'h-10 sm:h-12' },
-    xl: { textSize: 'text-4xl', iconSize: 'w-10 h-10', subtitleSize: 'text-[10px]', imgHeight: 'h-12 sm:h-14' },
+    sm: { textSize: 'text-lg', iconSize: 'w-5 h-5', subtitleSize: 'text-[7px]', imgHeight: 'h-7 sm:h-8' },
+    md: { textSize: 'text-2xl', iconSize: 'w-6 h-6', subtitleSize: 'text-[8px]', imgHeight: 'h-9 sm:h-10' },
+    lg: { textSize: 'text-3xl', iconSize: 'w-8 h-8', subtitleSize: 'text-[9px]', imgHeight: 'h-11 sm:h-13' },
+    xl: { textSize: 'text-4xl', iconSize: 'w-10 h-10', subtitleSize: 'text-[10px]', imgHeight: 'h-14 sm:h-16' },
   };
 
   const { textSize, iconSize, subtitleSize, imgHeight } = sizeMap[size];
 
-  // If a custom uploaded/configured logo image exists, render it cleanly
-  if (customLogoUrl) {
+  const activeLogoUrl = customLogoUrl || propLogoUrl || DEFAULT_LOGO_URL;
+
+  // If logo image exists and didn't fail to load, render it cleanly
+  if (activeLogoUrl && !imgError) {
     return (
       <div className={`inline-flex items-center space-x-2 select-none font-sans ${className}`}>
         <img
-          src={customLogoUrl}
+          src={activeLogoUrl}
           alt="Logo AgroPasi"
-          className={`${imgHeight} w-auto object-contain max-w-[240px]`}
-          onError={() => setCustomLogoUrl('')}
+          className={`${imgHeight} w-auto object-contain max-w-[260px] rounded`}
+          onError={() => setImgError(true)}
           referrerPolicy="no-referrer"
         />
 
