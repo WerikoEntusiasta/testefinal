@@ -58,6 +58,22 @@ export default function App() {
       iconLink.type = 'image/svg+xml';
       iconLink.href = leafFaviconSvg;
     } catch (e) {}
+  }, [route]);
+
+  useEffect(() => {
+    const handleStorageUpdated = () => {
+      try {
+        const storedHero = localStorage.getItem('agropasi_cms_hero');
+        if (storedHero) {
+          const parsed = JSON.parse(storedHero);
+          if (parsed?.logoUrl) {
+            setSiteLogoUrl(parsed.logoUrl);
+          }
+        }
+      } catch (e) {}
+    };
+
+    window.addEventListener('storage_updated', handleStorageUpdated);
 
     const syncDatabaseData = async () => {
       try {
@@ -87,6 +103,10 @@ export default function App() {
       }
     };
     syncDatabaseData();
+
+    return () => {
+      window.removeEventListener('storage_updated', handleStorageUpdated);
+    };
   }, [route]);
 
   const handleCloseAdmin = () => {
