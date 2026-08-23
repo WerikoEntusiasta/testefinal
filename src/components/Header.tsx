@@ -43,8 +43,11 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => handleLinkClick(item.href)}
-                className="px-1.5 min-[1360px]:px-2.5 py-2 rounded-md xl:text-[10px] min-[1360px]:text-[11px] 2xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-[#d48743] hover:bg-zinc-900/50 transition-all whitespace-nowrap shrink-0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(item.href);
+                }}
+                className="px-1.5 min-[1360px]:px-2.5 py-2 rounded-md xl:text-[10px] min-[1360px]:text-[11px] 2xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-[#d48743] hover:bg-zinc-900/50 transition-all whitespace-nowrap shrink-0 cursor-pointer"
               >
                 {item.label}
               </a>
@@ -55,7 +58,7 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
           <div className="hidden xl:flex items-center space-x-1.5 2xl:space-x-3 shrink-0">
             {/* Quick WhatsApp Link */}
             <a
-              href="https://wa.me/5517991066796?text=Olá!%20Vi%20o%20VarreFort-S%20no%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20preços%20e%20condições."
+              href="https://wa.me/5517996355842?text=Olá!%20Vi%20o%20site%20da%20AgroPasi%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20VarreFort-S."
               target="_blank"
               referrerPolicy="no-referrer"
               className="inline-flex items-center bg-[#d48743] hover:bg-[#c27a41] text-white xl:text-[10px] min-[1360px]:text-[11px] 2xl:text-xs font-bold px-2 min-[1360px]:px-3 2xl:px-4 py-2 rounded-lg transition-all shadow-md shadow-[#d48743]/10 whitespace-nowrap"
@@ -89,8 +92,11 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => handleMobileLinkClick(item.href)}
-                className="block px-4 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider text-zinc-300 hover:text-[#d48743] hover:bg-zinc-900/50 transition-all font-sans"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleMobileLinkClick(item.href);
+                }}
+                className="block px-4 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider text-zinc-300 hover:text-[#d48743] hover:bg-zinc-900/50 transition-all font-sans cursor-pointer"
               >
                 {item.label}
               </a>
@@ -98,12 +104,12 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
             
             <div className="pt-4 pb-2 border-t border-zinc-800 px-4 flex flex-col gap-3">
               <a
-                href="https://wa.me/5517991066796?text=Olá!%20Vi%20o%20VarreFort-S%20no%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20preços%20e%20condições."
+                href="https://wa.me/5517996355842?text=Olá!%20Vi%20o%20site%20da%20AgroPasi%20e%20gostaria%20de%20falar%20com%20um%20vendedor."
                 target="_blank"
                 referrerPolicy="no-referrer"
                 className="w-full text-center bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg font-sans transition-all"
               >
-                Falar com Vendedor
+                Falar com Vendedor (WhatsApp)
               </a>
             </div>
           </div>

@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Flame, Shield, Award, Wrench } from 'lucide-react';
+import { ArrowRight, Flame, Shield, Award, Wrench, Calculator } from 'lucide-react';
 
-export default function Hero() {
+interface HeroProps {
+  onSelectProduct?: (id: string) => void;
+  onNavigate?: (hash?: string) => void;
+}
+
+export default function Hero({ onSelectProduct, onNavigate }: HeroProps) {
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -86,7 +91,7 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-[85vh] flex items-center bg-zinc-950 text-zinc-150 overflow-hidden py-16"
     >
-      {/* Immersive Editorial background with dual-gradient overlays for high contrast with white theme */}
+      {/* Immersive Editorial background */}
       <div 
         className="absolute inset-0 z-0 transition-transform duration-75 ease-out select-none pointer-events-none"
         style={{
@@ -99,9 +104,7 @@ export default function Hero() {
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover opacity-[0.25] filter grayscale contrast-125 brightness-105"
         />
-        {/* Horizontal gradient to keep left (text) side clean and white, while letting image show on the right */}
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/85 to-zinc-950/20" />
-        {/* Vertical gradient to fade out at the bottom transition */}
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
       </div>
 
@@ -110,9 +113,10 @@ export default function Hero() {
           
           {/* Main message */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center space-x-2 bg-[#262b3f]/10 border border-[#262b3f]/20 px-3 py-1.5 rounded-full text-[#d48743] text-xs font-semibold uppercase tracking-wider">
+            {/* Badge positioned above the title */}
+            <div className="inline-flex items-center space-x-2 bg-[#d48743]/15 border border-[#d48743]/30 px-3.5 py-1.5 rounded-full text-[#d48743] text-xs font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5" />
-              <span>{badge}</span>
+              <span>{badge || 'LANÇAMENTO: ARRUADOR VARREFORT-S'}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight text-zinc-100 leading-tight whitespace-pre-line">
@@ -131,87 +135,125 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a
-                href="#produtos"
+              <button
+                onClick={() => {
+                  if (onNavigate) {
+                    onNavigate('#produtos');
+                  } else {
+                    const el = document.getElementById('produtos');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="inline-flex items-center justify-center bg-[#d48743] hover:bg-[#c27a41] text-white font-sans text-sm font-bold uppercase tracking-wider py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-amber-900/20 cursor-pointer"
                 id="hero-products-btn"
               >
                 VER IMPLEMENTOS PARA CAFÉ
                 <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-              <a
-                href="#calculadora"
+              </button>
+              
+              <button
+                onClick={() => {
+                  if (onSelectProduct) {
+                    onSelectProduct('varrefort-s');
+                  } else if (onNavigate) {
+                    onNavigate('#contato');
+                  } else {
+                    const el = document.getElementById('contato');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="inline-flex items-center justify-center bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 py-3.5 px-6 rounded-xl transition-all text-sm font-bold uppercase tracking-wider cursor-pointer"
                 id="hero-calc-btn"
               >
+                <Calculator className="w-4 h-4 mr-2 text-[#d48743]" />
                 Calcular Economia RPM
-              </a>
+              </button>
             </div>
 
-            {/* Value pillars indicators */}
+            {/* Value pillars indicators (Corrigido: 100% Nacional) */}
             <div className="grid grid-cols-3 gap-4 pt-8 border-t border-zinc-800/60 max-w-lg">
               <div>
                 <span className="block text-xl font-bold font-mono text-[#d48743]">DESDE 1960</span>
-                <span className="block text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-0.5">NA INDÚSTRIA</span>
+                <span className="block text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-0.5">TRADIÇÃO INDUSTRIAL</span>
               </div>
               <div>
                 <span className="block text-xl font-bold font-mono text-[#d48743]">-20%</span>
                 <span className="block text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-0.5">CONSUMO DE DIESEL</span>
               </div>
               <div>
-                <span className="block text-xl font-bold font-mono text-zinc-200" style={{ color: '#d48743' }}>100%</span>
-                <span className="block text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-0.5">FABRICAÇÃO PRÓPRIA</span>
+                <span className="block text-xl font-bold font-mono text-[#d48743]">100%</span>
+                <span className="block text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-0.5">NACIONAL</span>
               </div>
             </div>
           </div>
 
-          {/* Graphical badge / Promo space with Mouse Interactive Parallax Tilt */}
+          {/* Graphical Card do VarreFort-S with robust non-breaking responsive layout */}
           <div 
             className="lg:col-span-5 flex justify-center transition-transform duration-300 ease-out"
             style={{
               transform: `perspective(1000px) rotateY(${mousePos.x}deg) rotateX(${-mousePos.y}deg) translateY(${Math.min(scrollY * 0.1, 80)}px)`
             }}
           >
-            <div className="relative w-full max-w-md bg-zinc-900/60 border border-zinc-800 backdrop-blur-md rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl">
-              <div className="absolute top-0 right-0 transform translate-x-3 -translate-y-3 bg-[#d48743] text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full shadow-md tracking-wider">
-                Lançamento Rancheiro
+            <div className="relative w-full max-w-md bg-zinc-900/80 border border-zinc-800 backdrop-blur-md rounded-2xl p-6 sm:p-7 space-y-5 shadow-2xl overflow-hidden">
+              
+              {/* Header inside the card flow to prevent overflow */}
+              <div className="flex items-center justify-between gap-2 border-b border-zinc-800/80 pb-3">
+                <span className="text-[10px] uppercase font-bold text-[#d48743] tracking-wider font-mono">
+                  Principal Equipamento
+                </span>
+                <span className="bg-[#d48743] text-white text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow-md tracking-wider">
+                  Lançamento Rancheiro
+                </span>
               </div>
 
               <div className="space-y-2">
-                <span className="text-[10px] uppercase font-bold text-[#d48743] tracking-wider">Principal Equipamento</span>
-                <h3 className="text-xl font-bold text-zinc-100 font-display">VarreFort-S</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+                <h3 className="text-2xl font-bold text-zinc-100 font-sans">VarreFort-S</h3>
+                <p className="text-xs text-zinc-350 leading-relaxed font-sans">
                   Engrenagens tratadas termicamente em nossa própria metalúrgica. Feito para trabalhar com baixo RPM do trator e colher toda a riqueza que fica no chão do cafezal.
                 </p>
               </div>
 
               {/* Miniature Technical Spec Grid */}
-              <div className="grid grid-cols-2 gap-3 bg-zinc-950/80 p-4 rounded-xl border border-zinc-800/80">
-                <div className="flex items-center space-x-2 text-xs">
-                  <Wrench className="w-4 h-4 text-[#d48743] shrink-0" />
+              <div className="grid grid-cols-2 gap-3 bg-zinc-950/90 p-3.5 rounded-xl border border-zinc-800">
+                <div className="flex items-center space-x-2.5 text-xs">
+                  <div className="p-1.5 bg-[#d48743]/15 rounded-lg text-[#d48743]">
+                    <Wrench className="w-4 h-4 shrink-0" />
+                  </div>
                   <div>
-                    <span className="block text-[10px] text-zinc-500">Acoplamento</span>
-                    <strong className="text-zinc-200">3 Pontos Cat II</strong>
+                    <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Acoplamento</span>
+                    <strong className="text-zinc-100 text-xs">3 Pontos Cat II</strong>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2 text-xs">
-                  <Flame className="w-4 h-4 text-[#d48743] shrink-0" />
+                <div className="flex items-center space-x-2.5 text-xs">
+                  <div className="p-1.5 bg-[#d48743]/15 rounded-lg text-[#d48743]">
+                    <Flame className="w-4 h-4 shrink-0" />
+                  </div>
                   <div>
-                    <span className="block text-[10px] text-zinc-500">Operação</span>
-                    <strong className="text-zinc-200 font-mono">1300-1500 RPM</strong>
+                    <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Operação</span>
+                    <strong className="text-[#d48743] text-xs font-mono">1.300 - 1.500 RPM</strong>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2">
-                <a
-                  href="#produtos"
-                  className="w-full inline-flex items-center justify-center bg-zinc-150 hover:bg-zinc-200 text-zinc-950 text-xs font-bold uppercase tracking-wider py-2.5 rounded-lg border border-zinc-800 transition"
+              {/* Action to view tech sheet and product detail directly */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onSelectProduct) {
+                      onSelectProduct('varrefort-s');
+                    } else if (onNavigate) {
+                      onNavigate('#produtos');
+                    }
+                  }}
+                  className="w-full inline-flex items-center justify-center bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition cursor-pointer shadow-md"
                 >
                   Ver Ficha e Manual Técnico
-                </a>
+                  <ArrowRight className="w-4 h-4 ml-1.5 text-zinc-900" />
+                </button>
               </div>
+
             </div>
           </div>
 

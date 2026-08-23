@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Send, MapPin, Phone, Mail, Award, ArrowUp } from 'lucide-react';
+import { Instagram, Send, MapPin, Phone, Mail, Award, ArrowUp, ShieldCheck } from 'lucide-react';
 import AgroPasiLogo from './AgroPasiLogo';
 
 interface FooterProps {
@@ -47,7 +47,7 @@ export default function Footer({ logoUrl }: FooterProps) {
                 <Mail className="w-4 h-4" />
               </a>
               <a
-                href="https://wa.me/5517991066796?text=Olá!%20Vi%20o%20VarreFort-S%20no%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20preços%20e%20condições."
+                href="https://wa.me/5517996355842?text=Olá!%20Vi%20o%20site%20da%20AgroPasi%20e%20gostaria%20de%20falar%20com%20um%20consultor."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 bg-zinc-900/60 hover:bg-[#d48743] text-zinc-300 hover:text-white rounded-lg border border-zinc-800 transition-all duration-200"
@@ -95,12 +95,12 @@ export default function Footer({ logoUrl }: FooterProps) {
               <li className="flex flex-col gap-1.5" style={{ color: '#ffffff' }}>
                 <div className="flex items-center">
                   <Phone className="w-4 h-4 text-[#d48743] shrink-0 mr-2.5" />
-                  <span className="text-zinc-400 mr-1" style={{ color: '#ffffff' }}>José (SP):</span>
-                  <a href="tel:5517991066796" className="hover:text-[#d48743] text-white transition font-bold font-mono">(17) 99106-6796</a>
+                  <span className="text-zinc-400 mr-1" style={{ color: '#ffffff' }}>José (SP/Fábrica):</span>
+                  <a href="https://wa.me/5517996355842" target="_blank" rel="noopener noreferrer" className="hover:text-[#d48743] text-white transition font-bold font-mono">(17) 99635-5842</a>
                 </div>
                 <div className="flex items-center pl-6.5 text-zinc-400">
                   <span className="mr-1" style={{ color: '#ffffff' }}>Djalma (MG):</span>
-                  <a href="tel:5535998993966" className="hover:text-[#d48743] text-white transition font-medium font-mono">(35) 99899-3966</a>
+                  <a href="https://wa.me/5535998993966" target="_blank" rel="noopener noreferrer" className="hover:text-[#d48743] text-white transition font-medium font-mono">(35) 99899-3966</a>
                 </div>
               </li>
               <li className="flex items-center">
@@ -121,7 +121,16 @@ export default function Footer({ logoUrl }: FooterProps) {
             Desenvolvido para máxima eficiência no campo e menor consumo diesel.
           </div>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-wrap gap-3 items-center justify-center md:justify-end">
+            <button
+              onClick={() => window.dispatchEvent(new Event('open_cookie_preferences'))}
+              type="button"
+              className="inline-flex items-center text-[10px] bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white px-2.5 py-1 rounded transition cursor-pointer"
+              title="Gerenciar Preferências de Cookies e LGPD"
+              id="footer-cookies-lgpd-link"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#d48743] mr-1.5" /> Cookies & LGPD
+            </button>
             <span className="inline-flex items-center text-[10px] bg-zinc-900/80 border border-zinc-800 text-zinc-300 px-2.5 py-1 rounded">
               <Award className="w-3.5 h-3.5 text-[#d48743] mr-1.5" /> Metalurgia Estável
             </span>

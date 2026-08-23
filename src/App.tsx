@@ -5,13 +5,16 @@ import NavigationGuide from './components/NavigationGuide';
 import CompanyAbout from './components/CompanyAbout';
 import Products from './components/Products';
 import ProductActionGallery from './components/ProductActionGallery';
-import FaqAccordion from './components/FaqAccordion';
+import SavingsCalculator from './components/SavingsCalculator';
 import CepLocator from './components/CepLocator';
+import FaqAccordion from './components/FaqAccordion';
+import RuralBlog from './components/RuralBlog';
 import Footer from './components/Footer';
 import AdminPortal from './components/AdminPortal';
 import ProductDetailPage from './components/ProductDetailPage';
 import AllProductsPage from './components/AllProductsPage';
 import BlogPage from './components/BlogPage';
+import CookieConsent from './components/CookieConsent';
 import { api, sanitizeOverrides } from './lib/api';
 
 export default function App() {
@@ -126,27 +129,57 @@ export default function App() {
       setSelectedProductId('pasiparts');
       setView('home');
       window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (hash === '#blog') {
+      setSelectedProductId(null);
+      setView('blog');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (hash === '#produtos') {
+      if (view === 'home' && !selectedProductId) {
+        const el = document.getElementById('produtos');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      }
+      setSelectedProductId(null);
+      setView('home');
+      requestAnimationFrame(() => {
+        const el = document.getElementById('produtos');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    } else if (hash === '#inicio') {
+      if (view === 'home' && !selectedProductId) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      setSelectedProductId(null);
+      setView('home');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (hash === '#contato') {
+      if (view === 'home' && !selectedProductId) {
+        const el = document.getElementById('contato');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      }
+      setSelectedProductId(null);
+      setView('home');
+      requestAnimationFrame(() => {
+        const el = document.getElementById('contato');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
     } else {
       setSelectedProductId(null);
-      if (hash === '#produtos') {
-        setView('all-products');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      } else if (hash === '#blog') {
-        setView('blog');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      } else if (hash === '#inicio') {
-        setView('home');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      } else {
-        setView('home');
-        if (hash) {
-          setTimeout(() => {
-            const element = document.querySelector(hash);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, 80);
-        }
+      setView('home');
+      if (hash) {
+        const targetId = hash.replace('#', '');
+        requestAnimationFrame(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       }
     }
   };
@@ -168,7 +201,7 @@ export default function App() {
         logoUrl={siteLogoUrl}
       />
 
-      {/* Primary Corporate Layout Row / Product Page View */}
+      {/* Primary Layout Row / Product Page View */}
       <main className="relative">
         {selectedProductId ? (
           <ProductDetailPage 
@@ -187,44 +220,30 @@ export default function App() {
           />
         ) : (
           <>
-            <Hero />
-            <NavigationGuide />
+            {/* 1. HERO */}
+            <Hero 
+              onSelectProduct={handleSelectProduct}
+              onNavigate={handleNavigate}
+            />
+
+            {/* 2. CATÁLOGO DE PRODUTOS (Destaques do Catálogo) */}
+            <Products 
+              onSelectProduct={handleSelectProduct} 
+              onViewAllProducts={() => {
+                setSelectedProductId(null);
+                setView('all-products');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+              }}
+            />
+
+            {/* 3. INSTITUCIONAL (Nossas Raízes e Valores) */}
             <CompanyAbout />
-            
-            {/* Featured Products showcase */}
-            <Products onSelectProduct={handleSelectProduct} />
-            
+
+            {/* 4. CONTATO & LOCALIZADOR DE REPRESENTANTES (Fluxo Único) */}
             <CepLocator />
 
-            {/* 1. "a galeria de produtos em ação coloque logo abaixo dos produtos destaque" */}
-            <ProductActionGallery />
-            
-            <FaqAccordion />
-
-            {/* High-quality CTA link to the new standalone Blog Page */}
-            <div className="py-20 bg-zinc-950 border-t border-zinc-900 text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-[#d48743]/0 via-[#d48743]/2 to-transparent pointer-events-none" />
-              <div className="max-w-4xl mx-auto px-4 relative z-10 space-y-4">
-                <span className="inline-block px-3 py-1 bg-[#d48743]/10 border border-[#d48743]/20 text-[#d48743] text-[10px] font-bold uppercase tracking-wider rounded-full font-mono">
-                  Informativos & Dicas de Campo
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-zinc-150 font-sans tracking-tight">
-                  Quer maximizar a lucratividade da sua colheita?
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
-                  Confira orientações técnicas sobre regulagens de ventilação, manutenção preventiva pós-safra e engenharia mecânica elaboradas por nossos consultores.
-                </p>
-                <div className="pt-2">
-                  <button
-                    onClick={() => handleNavigate('#blog')}
-                    className="inline-flex items-center bg-[#d48743] hover:bg-[#c27a41] text-white px-6 py-3.5 rounded-xl text-xs font-bold transition-all shadow-lg shadow-[#d48743]/10 cursor-pointer"
-                  >
-                    Acessar o Blog Completo AgroPasi
-                    <span className="ml-2 font-mono">→</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+            {/* 5. BLOG DO CAFEZAL */}
+            <RuralBlog />
           </>
         )}
       </main>
@@ -232,6 +251,8 @@ export default function App() {
       {/* Complete Footer Section */}
       <Footer logoUrl={siteLogoUrl} />
       
+      {/* LGPD Cookie Consent Banner (com fadeout de 30s) */}
+      <CookieConsent />
     </div>
   );
 }

@@ -264,10 +264,30 @@ async function writeAuditLog(
 }
 
 // -------------------------------------------------------------------------
-// 7. PUBLIC CATALOG CONTENT API
+// 7. PUBLIC CATALOG CONTENT API (WITH IN-MEMORY FAST CACHE)
 // -------------------------------------------------------------------------
+let publicDataCache: any = null;
+let publicDataCacheTime = 0;
+
+export function invalidatePublicDataCache() {
+  publicDataCache = null;
+  publicDataCacheTime = 0;
+}
+
+app.post('/api/public/clear-cache', (req, res) => {
+  invalidatePublicDataCache();
+  res.json({ success: true, message: 'Cache do servidor limpo com sucesso.' });
+});
+
 app.get('/api/public/data', async (req, res) => {
   try {
+    const now = Date.now();
+    // Cache for 15 seconds or until invalidated on CMS mutation
+    if (publicDataCache && (now - publicDataCacheTime < 15000)) {
+      res.setHeader('X-Cache', 'HIT');
+      return res.json(publicDataCache);
+    }
+
     const hero = await dbGet('SELECT * FROM cms_hero LIMIT 1');
     const about = await dbGet('SELECT * FROM cms_about LIMIT 1');
     const faqs = await dbAll('SELECT * FROM faqs ORDER BY created_at DESC');
@@ -297,7 +317,7 @@ app.get('/api/public/data', async (req, res) => {
       };
     });
 
-    res.json({
+    const responseData = {
       hero,
       about,
       faqs,
@@ -306,7 +326,13 @@ app.get('/api/public/data', async (req, res) => {
       representatives,
       tractors,
       productOverrides: overrides
-    });
+    };
+
+    publicDataCache = responseData;
+    publicDataCacheTime = now;
+
+    res.setHeader('X-Cache', 'MISS');
+    res.json(responseData);
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ error: 'Erro ao carregar dados do catálogo.' });
@@ -1059,6 +1085,7 @@ app.post('/api/admin/cms/hero', sessionAuthMiddleware, async (req, res) => {
     );
 
     const after = await dbGet('SELECT * FROM cms_hero WHERE id = ?', ['main_hero']);
+    invalidatePublicDataCache();
     await writeAuditLog(session.email, session.role, 'Atualizou os textos, logo da marca e banner do Hero principal', req, before, after);
 
     res.json({ success: true, hero: after });
@@ -1103,6 +1130,7 @@ app.post('/api/admin/cms/logo', sessionAuthMiddleware, async (req, res) => {
     }
 
     const after = await dbGet('SELECT * FROM cms_hero WHERE id = ?', ['main_hero']);
+    invalidatePublicDataCache();
     await writeAuditLog(session.email, session.role, 'Atualizou a logo oficial do site', req, before, after);
 
     res.json({ success: true, hero: after, logoUrl: logoUrl || '' });
@@ -1143,6 +1171,7 @@ app.post('/api/admin/cms/about', sessionAuthMiddleware, async (req, res) => {
     );
 
     const after = await dbGet('SELECT * FROM cms_about WHERE id = ?', ['main_about']);
+    invalidatePublicDataCache();
     await writeAuditLog(session.email, session.role, 'Atualizou a seção "Quem Somos / Família Pasiani"', req, before, after);
 
     res.json({ success: true, about: after });
@@ -1179,6 +1208,7 @@ app.post('/api/admin/product-overrides', sessionAuthMiddleware, async (req, res)
     }
 
     const after = await dbGet('SELECT * FROM product_overrides WHERE id = ?', [id]);
+    invalidatePublicDataCache();
     await writeAuditLog(session.email, session.role, `Atualizou especificações do produto destacado: "${title}"`, req, before, after);
 
     if (after) {

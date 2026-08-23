@@ -13,9 +13,10 @@ export interface CustomProduct {
 
 interface ProductsProps {
   onSelectProduct: (id: string) => void;
+  onViewAllProducts?: () => void;
 }
 
-export default function Products({ onSelectProduct }: ProductsProps) {
+export default function Products({ onSelectProduct, onViewAllProducts }: ProductsProps) {
   // Custom products state (from Admin Portal)
   const [customProducts, setCustomProducts] = useState<CustomProduct[]>([]);
   const [mainOverrides, setMainOverrides] = useState<Record<string, any>>({});
@@ -55,35 +56,38 @@ export default function Products({ onSelectProduct }: ProductsProps) {
     return () => window.removeEventListener('storage_updated', handleUpdate);
   }, []);
 
-  // Three core main products
+  // Three core main products with distinct status colors
   const mainProducts = [
     {
       id: 'varrefort-s',
-      name: mainOverrides['varrefort-s']?.name || 'VarreFort-S',
-      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e menos diesel a cada hora de trabalho.',
-      availability: 'Pronta Entrega / Sob Consulta',
+      name: mainOverrides['varrefort-s']?.name || 'Arruador de Café VarreFort-S',
+      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e até 20% menos diesel a cada hora.',
+      availability: 'Pronta Entrega',
       image: mainOverrides['varrefort-s']?.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
-      badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Destaque de Vendas',
+      badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Disponível Agora',
+      badgeColor: 'bg-emerald-600 text-white',
       tag: mainOverrides['varrefort-s']?.tag || 'Alta Performance',
       specs: ['Baixo Giro (1300 RPM)', 'Turbina Balanceada', 'Economia de Diesel']
     },
     {
       id: 'varremax-x',
       name: mainOverrides['varremax-x']?.name || 'Recolhedora de Café AgroPasi',
-      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — testada, validada em campo e construída para durar. Uma máquina concebida para o cafeicultor que não aceita perda de performance na recolha.',
-      availability: 'Pré-Lançamento (Breve Disponível)',
+      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — testada e validada em campo. Concebida para o cafeicultor que busca alta velocidade na recolha.',
+      availability: 'Pré-Lançamento',
       image: mainOverrides['varremax-x']?.image || 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80&w=600',
-      badge: mainOverrides['varremax-x']?.badge !== undefined ? mainOverrides['varremax-x']?.badge : 'Próximo Lançamento AgroPasi',
+      badge: mainOverrides['varremax-x']?.badge !== undefined ? mainOverrides['varremax-x']?.badge : 'Próximo Lançamento',
+      badgeColor: 'bg-[#d48743] text-white',
       tag: mainOverrides['varremax-x']?.tag || 'Colheita Mecanizada',
       specs: ['Peneira Vibratória', 'Turbina Sucção Dupla', 'Basculante 1500L']
     },
     {
       id: 'pasiparts',
       name: mainOverrides['pasiparts']?.name || 'Peças de Reposição & Suporte Técnico',
-      description: mainOverrides['pasiparts']?.description || 'Deixamos de lado esperas burocráticas por peças sob encomenda. Por termos estrutura industrial própria, garantimos disponibilidade imediata de engrenagens, eixos vedados e rolamentos — prontos para despacho rápido.',
-      availability: 'Usinagem Própria / Envio em 24h',
+      description: mainOverrides['pasiparts']?.description || 'Fabricação própria de componentes, eixos, engrenagens e rolamentos autocompensadores para pronta entrega e projetos sob medida para sua lavoura.',
+      availability: 'Envio Imediato',
       image: mainOverrides['pasiparts']?.image || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600',
-      badge: mainOverrides['pasiparts']?.badge !== undefined ? mainOverrides['pasiparts']?.badge : 'Original de Fábrica',
+      badge: mainOverrides['pasiparts']?.badge !== undefined ? mainOverrides['pasiparts']?.badge : 'Suporte de Fábrica',
+      badgeColor: 'bg-zinc-750 text-zinc-200 border border-zinc-700',
       tag: mainOverrides['pasiparts']?.tag || 'Peças Genuínas',
       specs: ['Engrenagens Próprias', 'Aço Certificado', 'Rolamentos Genuínos']
     }
@@ -97,8 +101,8 @@ export default function Products({ onSelectProduct }: ProductsProps) {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-3 py-1 bg-[#d48743] border border-[#d48743] text-white text-xs font-semibold rounded-full uppercase tracking-wider mb-3">
-            Nosso Portfólio Industrial
+          <span className="inline-block px-3.5 py-1.5 bg-[#d48743]/15 border border-[#d48743]/30 text-[#d48743] text-xs font-bold rounded-full uppercase tracking-wider mb-3">
+            Destaques do Catálogo
           </span>
           <h2 className="text-3xl sm:text-4xl font-sans font-bold tracking-tight text-zinc-100 mb-4">
             Implementos Desenvolvidos para <span className="text-[#d48743]">Render no Campo</span>
@@ -109,7 +113,7 @@ export default function Products({ onSelectProduct }: ProductsProps) {
         </div>
 
         {/* 3 Core Highlighted Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-12">
           {mainProducts.map((product) => (
             <div 
               key={product.id}
@@ -132,7 +136,7 @@ export default function Products({ onSelectProduct }: ProductsProps) {
                   {product.tag}
                 </div>
                 {product.badge && (
-                  <div className="absolute top-4 right-4 bg-[#d48743] text-white text-[9px] font-extrabold uppercase py-1 px-2.5 rounded shadow-lg">
+                  <div className={`absolute top-4 right-4 text-[9px] font-extrabold uppercase py-1 px-2.5 rounded shadow-lg ${product.badgeColor || 'bg-[#d48743] text-white'}`}>
                     {product.badge}
                   </div>
                 )}
@@ -141,15 +145,12 @@ export default function Products({ onSelectProduct }: ProductsProps) {
               {/* Card Body */}
               <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
-                  {/* Availability Field */}
-                  <div className="flex items-center gap-1.5">
-                    <span 
-                      className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono"
-                      style={product.id === 'varrefort-s' ? { color: '#ffffff' } : undefined}
-                    >
-                      Disponibilidade:
+                  {/* Availability Field with colored dot */}
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${product.id === 'varrefort-s' ? 'bg-emerald-500 animate-pulse' : product.id === 'varremax-x' ? 'bg-[#d48743]' : 'bg-zinc-400'}`} />
+                    <span className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold font-mono">
+                      {product.availability}
                     </span>
-                    <span className="text-[10px] font-extrabold text-[#d48743] uppercase tracking-wider font-mono">{product.availability}</span>
                   </div>
 
                   {/* Product Name */}
@@ -173,13 +174,8 @@ export default function Products({ onSelectProduct }: ProductsProps) {
                           key={sidx} 
                           className={
                             isMain 
-                              ? "bg-[#d48743] border border-[#d48743] text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded shadow-sm animate-pulse-slow"
-                              : "bg-zinc-900/60 border border-zinc-800/80 text-zinc-500 text-[9px] font-mono px-2 py-0.5 rounded"
-                          }
-                          style={
-                            isMain 
-                              ? { backgroundColor: '#d48743', color: '#ffffff', borderColor: '#d48743' }
-                              : { backgroundColor: '#18181b', color: '#71717a', borderColor: '#27272a' }
+                              ? "bg-[#d48743]/15 border border-[#d48743]/40 text-[#d48743] text-[9px] font-mono font-bold px-2 py-0.5 rounded shadow-sm"
+                              : "bg-zinc-900/60 border border-zinc-800/80 text-zinc-400 text-[9px] font-mono px-2 py-0.5 rounded"
                           }
                         >
                           {spec}
@@ -193,16 +189,34 @@ export default function Products({ onSelectProduct }: ProductsProps) {
                 <div className="pt-4 border-t border-zinc-900 flex items-center justify-between text-xs font-semibold text-[#d48743] group-hover:text-amber-400 transition-colors">
                   <span>
                     {product.id === 'varrefort-s' 
-                      ? 'Ver Ficha Técnica & Simular Economia' 
+                      ? 'Ver Ficha Técnica & Vídeos' 
                       : product.id === 'varremax-x' 
-                        ? 'Quero ser Notificado do Lançamento' 
-                        : 'Consultar Peças & Disponibilidade'}
+                        ? 'Detalhes do Pré-Lançamento' 
+                        : 'Solicitar Peças pelo WhatsApp'}
                   </span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View Full Catalog Button */}
+        <div className="text-center pt-4 pb-4">
+          <button
+            onClick={() => {
+              if (onViewAllProducts) {
+                onViewAllProducts();
+              } else {
+                window.location.hash = '#produtos';
+              }
+            }}
+            className="inline-flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider border border-zinc-700 transition shadow-lg cursor-pointer"
+            id="view-all-products-btn"
+          >
+            Ver Catálogo Completo de Implementos
+            <ArrowRight className="w-4 h-4 text-[#d48743]" />
+          </button>
         </div>
 
         {/* Dynamic Owner-added Custom Products Section (Equipamentos Adicionais) */}
