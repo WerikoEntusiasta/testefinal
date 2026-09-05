@@ -1,0 +1,23 @@
+# robots.txt for AgroPasi (https://agropasi.com.br)
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/admin/
+
+# AI Crawlers & LLM Bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://agropasi.com.br/sitemap.xml

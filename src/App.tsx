@@ -45,9 +45,40 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = route === 'admin'
-      ? "AgroPasi | Portal Gerencial & Admin"
-      : "AgroPasi | Implementos Agrícolas e Peças para o Campo — 60 Anos de Indústria";
+    let title = "AgroPasi | Implementos Agrícolas e Peças para o Campo — 60 Anos de Indústria";
+    let desc = "AgroPasi - Tecnologia, durabilidade e proximidade com o campo. Conheça o Arruador Soprador VarreFort-S com até 20% de economia de diesel, peças de reposição e implementos agrícolas.";
+
+    if (route === 'admin') {
+      title = "AgroPasi | Portal Gerencial & Admin";
+      desc = "Painel administrativo de controle de catálogo, representantes e configurações da AgroPasi.";
+    } else if (selectedProductId === 'varrefort-s') {
+      title = "VarreFort-S | Arruador e Soprador de Café (Pronta Entrega) — AgroPasi";
+      desc = "Conheça o Arruador Soprador VarreFort-S da AgroPasi. Arruação de alta eficiência em baixa rotação (1200-1500 RPM), economia de até 20% de diesel e pronta entrega.";
+    } else if (selectedProductId === 'varremax-x') {
+      title = "Recolhedora de Café AgroPasi | Pré-Lançamento em Testes de Campo";
+      desc = "Recolhedora mecânica de café AgroPasi. Alta capacidade de recolhimento, pureza de grãos e robustez industrial para a cafeicultura brasileira.";
+    } else if (selectedProductId === 'pasiparts') {
+      title = "PasiParts | Peças de Reposição e Projetos Sob Medida — AgroPasi";
+      desc = "Peças originais de fábrica para implementos agrícolas. Fabricação 100% própria, pronta entrega e desenvolvimento sob medida para cafeicultura.";
+    } else if (view === 'all-products') {
+      title = "Catálogo Completo de Implementos e Peças para Café — AgroPasi";
+      desc = "Confira o portfólio completo de implementos agrícolas para cafeicultura da AgroPasi. Máquinas robustas, menor consumo de diesel e suporte de fábrica.";
+    } else if (view === 'blog') {
+      title = "Blog do Cafezal | Dicas Técnicas, Manejo e Eficiência na Colheita — AgroPasi";
+      desc = "Artigos práticos e técnicos para produtores de café: regulagem de arruador, manutenção preventiva, economia de combustível e maximização da safra.";
+    }
+
+    document.title = title;
+
+    try {
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', desc);
+    } catch (e) {}
     
     // Set official AgroPasi leaf favicon dynamically
     try {
@@ -61,7 +92,7 @@ export default function App() {
       iconLink.type = 'image/svg+xml';
       iconLink.href = leafFaviconSvg;
     } catch (e) {}
-  }, [route]);
+  }, [route, view, selectedProductId]);
 
   useEffect(() => {
     const handleStorageUpdated = () => {

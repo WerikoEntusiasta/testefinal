@@ -222,11 +222,11 @@ export default function CepLocator({ variant = 'full' }: CepLocatorProps) {
               onClick={handleOpenWhatsApp}
               type="button"
               id="contact-whatsapp-submit-btn"
-              className="w-full py-4 px-6 bg-[#d48743] hover:bg-[#c27a41] text-white rounded-2xl text-sm sm:text-base font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#d48743]/20 hover:shadow-[#d48743]/30 cursor-pointer uppercase tracking-wider"
+              className="w-full py-4 px-6 bg-[#d48743] hover:bg-[#c27a41] !text-white rounded-2xl text-sm sm:text-base font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#d48743]/20 hover:shadow-[#d48743]/30 cursor-pointer uppercase tracking-wider active:scale-[0.99]"
             >
-              <WhatsAppIcon className="w-6 h-6" />
-              <span>Falar no WhatsApp com {detectedRep.name.split(' ')[0]}</span>
-              <ArrowRight className="w-5 h-5" />
+              <WhatsAppIcon className="w-6 h-6 text-white shrink-0" />
+              <span className="text-white font-bold tracking-wide">Falar no WhatsApp</span>
+              <ArrowRight className="w-5 h-5 text-white shrink-0" />
             </button>
           </div>
 

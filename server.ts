@@ -1254,6 +1254,27 @@ app.get('/api/admin/logs', sessionAuthMiddleware, async (req, res) => {
 });
 
 // -------------------------------------------------------------------------
+// SEO & WEB CRAWLER ENDPOINTS (robots.txt & sitemap.xml)
+// -------------------------------------------------------------------------
+app.get('/robots.txt', (req, res) => {
+  const robotsPath = path.resolve(process.cwd(), 'public', 'robots.txt');
+  if (fs.existsSync(robotsPath)) {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    return res.sendFile(robotsPath);
+  }
+  res.type('text/plain').send("User-agent: *\nAllow: /\nSitemap: https://agropasi.com.br/sitemap.xml\n");
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapPath = path.resolve(process.cwd(), 'public', 'sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    return res.sendFile(sitemapPath);
+  }
+  res.status(404).send('Sitemap not found');
+});
+
+// -------------------------------------------------------------------------
 // 13. BOOTSTRAP ASYNC START FLOW
 // -------------------------------------------------------------------------
 async function startServer() {

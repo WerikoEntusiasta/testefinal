@@ -321,7 +321,7 @@ export function sanitizeOverrides(overrides: Record<string, any>): Record<string
         lowerDesc.includes('operar a baixo giro') ||
         lowerDesc.includes('arruador soprador de alta performance')
       ) {
-        v.description = 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e menos diesel a cada hora de trabalho.';
+        v.description = 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando combustível a cada hora de trabalho.';
       }
     }
     if (v.specsJson) {

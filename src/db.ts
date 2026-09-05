@@ -406,7 +406,7 @@ async function runInit() {
       'Estrutura Industrial Própria',
       'Cada peça passa pelo nosso processo. Nada é improvisado. Tudo é controlado.',
       'Nossas Raízes',
-      'Três gerações. Três indústrias. Uma obsessão que nunca mudou.',
+      'Três gerações, três indústrias, o mesmo compromisso com qualidade.',
       'Começamos com equipamentos para a gastronomia industrial. Décadas depois, investimos na construção civil. Hoje, chegamos ao agronegócio.',
       'Não expandimos por acaso. Expandimos porque uma família que vive de indústria aprende, a cada geração, a dominar um novo desafio com a mesma seriedade de sempre. A AgroPasi nasceu de 60 anos de indústria.'
     ]);
@@ -501,13 +501,13 @@ Em seguida, as articulações mecânicas e o [mark amarelo | eixo transmissor ca
 - Gire manualmente os eixos para distribuir o filme lubrificante de forma uniforme.
 - Utilize graxa com [color laranja | aditivos extrema pressão (EP)] para suportar os altos torques de partida.
 
-[img https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800 | Aplicação técnica de graxa em engrenagens de transmissão]
+[img https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800 | Aplicação técnica de graxa em engrenagens de transmissão]
 
 ## 3. Armazenamento Seguro Pré-Safra
 Antes de guardar o maquinário no galpão para a entressafra, aplique uma fina camada de óleo protetivo anticorrosivo em todas as partes metálicas expostas. Isso protege o lote contra a [color vermelho | umidade e oxidação invernal].`,
       date: '28 Mai 2026',
       readTime: '6 min leitura',
-      imageUrl: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=400'
+      imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 'p_3',
@@ -695,7 +695,7 @@ A redução da rotação de trabalho não só poupa combustível, mas também [c
       {
         id: 'varrefort-s',
         title: 'Arruador Soprador VarreFort-S',
-        description: 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e menos diesel a cada hora de trabalho.',
+        description: 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando combustível a cada hora de trabalho.',
         imageUrl: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=600',
         badge: 'Arruador Soprador de Café',
         tag: 'Arruador / Soprador',
@@ -721,7 +721,7 @@ A redução da rotação de trabalho não só poupa combustível, mas também [c
       {
         id: 'varremax-x',
         title: 'Recolhedora de Café RecolheFort-C',
-        description: 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — testada, validada em campo e construída para durar. Uma máquina concebida para o cafeicultor que não aceita perda de performance na recolha.',
+        description: 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — está sendo testada e validada em campo para máxima durabilidade. Uma máquina concebida para o cafeicultor que busca alto rendimento na recolha.',
         imageUrl: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80&w=600',
         badge: 'Próximo Lançamento AgroPasi',
         tag: 'Colheita Mecanizada',

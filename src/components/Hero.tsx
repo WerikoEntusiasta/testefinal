@@ -187,57 +187,74 @@ export default function Hero({ onSelectProduct, onNavigate }: HeroProps) {
             </div>
           </div>
 
-          {/* Graphical Card do VarreFort-S with robust non-breaking responsive layout */}
+          {/* Graphical Card do VarreFort-S — Foto real em campo como protagonista com ficha sobreposta */}
           <div 
             className="lg:col-span-5 flex justify-center transition-transform duration-300 ease-out"
             style={{
               transform: `perspective(1000px) rotateY(${mousePos.x}deg) rotateX(${-mousePos.y}deg) translateY(${Math.min(scrollY * 0.1, 80)}px)`
             }}
           >
-            <div className="relative w-full max-w-md bg-zinc-900/80 border border-zinc-800 backdrop-blur-md rounded-2xl p-6 sm:p-7 space-y-5 shadow-2xl overflow-hidden">
+            <div className="relative w-full max-w-md bg-zinc-900/90 border border-zinc-800 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl transition hover:border-zinc-700">
               
-              {/* Header inside the card flow to prevent overflow */}
-              <div className="flex items-center justify-between gap-2 border-b border-zinc-800/80 pb-3">
-                <span className="text-[10px] uppercase font-bold text-[#d48743] tracking-wider font-mono">
-                  Principal Equipamento
-                </span>
-                <span className="bg-[#d48743] text-white text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow-md tracking-wider">
-                  Lançamento Rancheiro
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-zinc-100 font-sans">VarreFort-S</h3>
-                <p className="text-xs text-zinc-350 leading-relaxed font-sans">
-                  Engrenagens tratadas termicamente em nossa própria metalúrgica. Feito para trabalhar com baixo RPM do trator e colher toda a riqueza que fica no chão do cafezal.
-                </p>
-              </div>
-
-              {/* Miniature Technical Spec Grid */}
-              <div className="grid grid-cols-2 gap-3 bg-zinc-950/90 p-3.5 rounded-xl border border-zinc-800">
-                <div className="flex items-center space-x-2.5 text-xs">
-                  <div className="p-1.5 bg-[#d48743]/15 rounded-lg text-[#d48743]">
-                    <Wrench className="w-4 h-4 shrink-0" />
-                  </div>
-                  <div>
-                    <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Acoplamento</span>
-                    <strong className="text-zinc-100 text-xs">3 Pontos Cat II</strong>
-                  </div>
+              {/* Foto Real de Campo como Protagonista */}
+              <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-zinc-950">
+                <img
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800"
+                  alt="Arruador de Café VarreFort-S operando na lavoura cafeeira"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+                
+                {/* Badges superiores flutuantes */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                  <span className="bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[#d48743] text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full font-mono">
+                    Implemento em Ação
+                  </span>
+                  <span className="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    Pronta Entrega
+                  </span>
                 </div>
 
-                <div className="flex items-center space-x-2.5 text-xs">
-                  <div className="p-1.5 bg-[#d48743]/15 rounded-lg text-[#d48743]">
-                    <Flame className="w-4 h-4 shrink-0" />
+                {/* Ficha Técnica Semi-transparente sobreposta no canto inferior da imagem */}
+                <div className="absolute bottom-3 left-3 right-3 bg-zinc-950/85 backdrop-blur-md border border-zinc-800/90 p-3 rounded-xl grid grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-center space-x-2">
+                    <div className="p-1.5 bg-[#d48743]/20 text-[#d48743] rounded-lg shrink-0">
+                      <Wrench className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Acoplamento</span>
+                      <strong className="text-zinc-100 text-xs">3 Pontos Cat II</strong>
+                    </div>
                   </div>
-                  <div>
-                    <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Operação</span>
-                    <strong className="text-[#d48743] text-xs font-mono">1.300 - 1.500 RPM</strong>
+
+                  <div className="flex items-center space-x-2">
+                    <div className="p-1.5 bg-[#d48743]/20 text-[#d48743] rounded-lg shrink-0">
+                      <Flame className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Baixa Rotação</span>
+                      <strong className="text-[#d48743] text-xs font-mono">1.300 - 1.500 RPM</strong>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Action to view tech sheet and product detail directly */}
-              <div className="pt-1">
+              {/* Informações Complementares e Ação */}
+              <div className="p-5 sm:p-6 space-y-4 bg-zinc-900/60">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold text-zinc-100 font-sans tracking-tight">Arruador VarreFort-S</h3>
+                    <span className="text-xs font-mono font-bold text-[#d48743] bg-[#d48743]/10 px-2.5 py-0.5 rounded border border-[#d48743]/20">
+                      Até -20% Diesel
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Engrenagens tratadas termicamente em nossa própria metalúrgica. Feito para trabalhar com baixo RPM do trator e aproveitar os grãos que ficam no chão do cafezal.
+                  </p>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => {
@@ -247,7 +264,7 @@ export default function Hero({ onSelectProduct, onNavigate }: HeroProps) {
                       onNavigate('#produtos');
                     }
                   }}
-                  className="w-full inline-flex items-center justify-center bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition cursor-pointer shadow-md"
+                  className="w-full inline-flex items-center justify-center bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition cursor-pointer shadow-md active:scale-[0.99]"
                 >
                   Ver Ficha e Manual Técnico
                   <ArrowRight className="w-4 h-4 ml-1.5 text-zinc-900" />

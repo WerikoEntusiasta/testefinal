@@ -10,7 +10,7 @@ export default function CompanyAbout() {
     'Cada peça passa pelo nosso processo. Nada é improvisado. Tudo é controlado.'
   );
   const [sectionBadge, setSectionBadge] = useState('Nossas Raízes');
-  const [sectionTitle, setSectionTitle] = useState('Três gerações. Três indústrias. Uma obsessão que nunca mudou.');
+  const [sectionTitle, setSectionTitle] = useState('Três gerações, três indústrias, o mesmo compromisso com qualidade.');
   const [sectionDesc1, setSectionDesc1] = useState(
     'Começamos com equipamentos para a gastronomia industrial. Décadas depois, investimos na construção civil. Hoje, chegamos ao agronegócio.'
   );
@@ -46,7 +46,7 @@ export default function CompanyAbout() {
     {
       icon: Handshake,
       title: 'Honestidade com o Produtor',
-      description: 'Falamos a verdade sobre a capacidade de nossas máquinas. Não vendemos promessas teóricas de catálogo; entregamos eficiência que se traduz no bolso do produtor e no rendimento da safra.'
+      description: 'Falamos com transparência sobre a capacidade das nossas máquinas. Entregamos eficiência real que se traduz no bolso do produtor e no rendimento da safra.'
     },
     {
       icon: ShieldCheck,

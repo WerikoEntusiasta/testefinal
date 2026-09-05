@@ -36,7 +36,7 @@ export default function AllProductsPage({ onSelectProduct, onBackToHome }: AllPr
     {
       id: 'varrefort-s',
       name: mainOverrides['varrefort-s']?.name || 'VarreFort-S',
-      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e menos diesel a cada hora de trabalho.',
+      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando combustível a cada hora de trabalho.',
       availability: 'Pronta Entrega / Sob Consulta',
       image: mainOverrides['varrefort-s']?.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
       badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Destaque de Vendas',
@@ -46,7 +46,7 @@ export default function AllProductsPage({ onSelectProduct, onBackToHome }: AllPr
     {
       id: 'varremax-x',
       name: mainOverrides['varremax-x']?.name || 'Recolhedora de Café AgroPasi',
-      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — testada, validada em campo e construída para durar. Uma máquina concebida para o cafeicultor que não aceita perda de performance na recolha.',
+      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — está sendo testada e validada em campo para máxima durabilidade. Uma máquina concebida para o cafeicultor que busca alto rendimento na recolha.',
       availability: 'Pré-Lançamento (Breve Disponível)',
       image: mainOverrides['varremax-x']?.image || 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80&w=600',
       badge: mainOverrides['varremax-x']?.badge !== undefined ? mainOverrides['varremax-x']?.badge : 'Próximo Lançamento AgroPasi',

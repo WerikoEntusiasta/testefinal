@@ -54,13 +54,13 @@ Em seguida, as articulações mecânicas e o [mark amarelo | eixo transmissor ca
 - Gire manualmente os eixos para distribuir o filme lubrificante de forma uniforme.
 - Utilize graxa com [color laranja | aditivos extrema pressão (EP)] para suportar os altos torques de partida.
 
-[img https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800 | Aplicação técnica de graxa em engrenagens de transmissão]
+[img https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800 | Aplicação técnica de graxa em engrenagens de transmissão]
 
 ## 3. Armazenamento Seguro Pré-Safra
 Antes de guardar o maquinário no galpão para a entressafra, aplique uma fina camada de óleo protetivo anticorrosivo em todas as partes metálicas expostas. Isso protege o lote contra a [color vermelho | umidade e oxidação invernal].`,
     date: '28 Mai 2026',
     readTime: '6 min leitura',
-    imageUrl: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=400'
+    imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
   },
   {
     id: 'p_3',
@@ -116,11 +116,18 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
     return () => window.removeEventListener('storage_updated', loadPosts);
   }, []);
 
+  const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
+
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    const isLiked = likedPosts[id];
+    setLikedPosts(prev => ({
+      ...prev,
+      [id]: !isLiked
+    }));
     setLikes(prev => ({
       ...prev,
-      [id]: (prev[id] || 0) + 1
+      [id]: (prev[id] || (12 + (parseInt(id.split('_')[1] || '0') * 5))) + (isLiked ? -1 : 1)
     }));
   };
 
@@ -232,6 +239,9 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
                       src={post.imageUrl}
                       alt={post.title}
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=600';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-103 transition duration-500"
                     />
                     <span className="absolute top-3 left-3 bg-zinc-950/90 text-emerald-400 border border-zinc-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
@@ -264,7 +274,7 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
                 </div>
 
                 {/* Footer read actions */}
-                <div className="p-6 border-t border-zinc-900 flex items-center justify-between">
+                <div className="p-6 border-t border-zinc-900 flex items-center justify-between gap-3 bg-zinc-950/40">
                   <span className="text-xs text-[#d48743] font-bold uppercase tracking-wider flex items-center group-hover:text-amber-400 transition">
                     Ler Artigo Completo
                     <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
@@ -274,10 +284,21 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
                   <button
                     onClick={(e) => handleLike(post.id, e)}
                     type="button"
-                    className="inline-flex items-center text-zinc-400 hover:text-emerald-400 font-mono text-xs cursor-pointer px-2.5 py-1 bg-zinc-950 rounded-lg border border-zinc-850"
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer select-none active:scale-95 border ${
+                      likedPosts[post.id]
+                        ? 'bg-emerald-950/70 text-emerald-400 border-emerald-600/50 shadow-xs ring-2 ring-emerald-500/20'
+                        : 'bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-[#d48743] border-zinc-800 hover:border-zinc-700'
+                    }`}
+                    title={likedPosts[post.id] ? 'Você curtiu este artigo' : 'Curtir este artigo'}
                   >
-                    <ThumbsUp className="w-3.5 h-3.5 mr-1" />
-                    <span>{likes[post.id] || 12 + parseInt(post.id.split('_')[1] || '0') * 5}</span>
+                    <ThumbsUp 
+                      className={`w-3.5 h-3.5 transition-transform ${
+                        likedPosts[post.id] ? 'fill-emerald-400 text-emerald-400 scale-110' : 'text-zinc-400'
+                      }`} 
+                    />
+                    <span className="tabular-nums font-mono text-[11px]">
+                      {likes[post.id] || (12 + (parseInt(post.id.split('_')[1] || '0') * 5))}
+                    </span>
                   </button>
                 </div>
               </article>

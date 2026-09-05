@@ -56,7 +56,7 @@ Em seguida, as articulações mecânicas e o [mark amarelo | eixo transmissor ca
 Antes de guardar o maquinário no galpão para a entressafra, aplique uma fina camada de óleo protetivo anticorrosivo em todas as partes metálicas expostas. Isso protege o lote contra a [color vermelho | umidade e oxidação invernal].`,
     date: '28 Mai 2026',
     readTime: '6 min leitura',
-    imageUrl: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=400'
+    imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
   },
   {
     id: 'p_3',
@@ -110,11 +110,18 @@ export default function RuralBlog() {
     return () => window.removeEventListener('storage_updated', loadPosts);
   }, []);
 
+  const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
+
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    const isLiked = likedPosts[id];
+    setLikedPosts(prev => ({
+      ...prev,
+      [id]: !isLiked
+    }));
     setLikes(prev => ({
       ...prev,
-      [id]: (prev[id] || 0) + 1
+      [id]: (prev[id] || (12 + (parseInt(id.split('_')[1] || '0') * 4))) + (isLiked ? -1 : 1)
     }));
   };
 
@@ -123,7 +130,7 @@ export default function RuralBlog() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="mb-12">
           <div>
             <span className="inline-block px-3 py-1 bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-2">
               Dicas Técnicas & Sabedoria do Produtor
@@ -134,11 +141,6 @@ export default function RuralBlog() {
             <p className="text-sm text-zinc-650 mt-1 max-w-xl">
               Artigos produzidos pelos nossos consultores de engenharia para apoiar cafeicultores na regulagem fina de motopeças e ganho de rentabilidade operacional.
             </p>
-          </div>
-          <div>
-            <span className="text-xs font-semibold text-zinc-500 bg-zinc-200/50 px-3 py-2 rounded-lg border border-zinc-200">
-              Atualizado semanalmente
-            </span>
           </div>
         </div>
 
@@ -157,6 +159,9 @@ export default function RuralBlog() {
                     src={post.imageUrl}
                     alt={post.title}
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=600';
+                    }}
                     className="w-full h-full object-cover group-hover:scale-103 transition duration-500 font-sans"
                   />
                   <span className="absolute top-3 left-3 bg-zinc-950/90 text-emerald-400 border border-zinc-850 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
@@ -188,22 +193,32 @@ export default function RuralBlog() {
                 </div>
               </div>
 
-              {/* Read button */}
-              <div className="p-5 border-t border-zinc-100 flex items-center justify-between">
-                <span className="text-xs text-emerald-700 font-bold uppercase tracking-wider flex items-center group-hover:text-emerald-600 transition">
+              {/* Read button & Like button */}
+              <div className="p-5 border-t border-zinc-100 flex items-center justify-between gap-3 bg-zinc-50/50">
+                <span className="text-xs text-[#d48743] font-bold uppercase tracking-wider flex items-center group-hover:text-[#b86d2d] transition">
                   Ler Artigo Completo
                   <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                 </span>
 
-                {/* Simple like button */}
+                {/* Polished like pill button */}
                 <button
                   onClick={(e) => handleLike(post.id, e)}
                   type="button"
-                  className="inline-flex items-center text-zinc-400 hover:text-emerald-700 font-mono text-xs cursor-pointer px-2 py-1 bg-zinc-100 rounded border border-zinc-200/50"
-                  title="Gostei deste artigo"
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer select-none active:scale-95 border ${
+                    likedPosts[post.id]
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-300 shadow-xs ring-2 ring-emerald-400/20'
+                      : 'bg-white text-zinc-600 hover:text-[#d48743] hover:bg-amber-50/50 border-zinc-200 hover:border-amber-200'
+                  }`}
+                  title={likedPosts[post.id] ? 'Você curtiu este artigo' : 'Curtir este artigo'}
                 >
-                  <ThumbsUp className="w-3.5 h-3.5 mr-1" />
-                  <span>{likes[post.id] || 8 + parseInt(post.id.split('_')[1] || '0') * 4}</span>
+                  <ThumbsUp 
+                    className={`w-3.5 h-3.5 transition-transform ${
+                      likedPosts[post.id] ? 'fill-emerald-600 text-emerald-600 scale-110' : 'text-zinc-400 group-hover/btn:text-[#d48743]'
+                    }`} 
+                  />
+                  <span className="tabular-nums font-mono text-[11px]">
+                    {likes[post.id] || (12 + (parseInt(post.id.split('_')[1] || '0') * 4))}
+                  </span>
                 </button>
               </div>
 

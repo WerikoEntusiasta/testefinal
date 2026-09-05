@@ -105,7 +105,7 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
       content: 'O acúmulo de palha úmida, poeira de terra vermelha e resíduos ácidos da polpa de café verde agride as ligas ferrosas. Ao final de cada ciclo de colheita, é indispensável efetuar uma lavagem sob pressão média com desengraxante biodegradável neutro. Em seguida, as articulações mecânicas e o eixo transmissor cardan principal devem ser completamente lubrificados por injeção até que a graxa antiga de cor escura seja expulsa, protegendo o lote contra umidade e corrosão invernal.',
       date: '28 Mai 2026',
       readTime: '6 min leitura',
-      imageUrl: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=400'
+      imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 'p_3',
@@ -1713,7 +1713,7 @@ export default function AdminPortal({ onClose }: AdminPortalProps) {
                   {
                     id: 'varrefort-s',
                     name: 'Arruador de Café VarreFort-S',
-                    description: 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e menos diesel a cada hora de trabalho.',
+                    description: 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e menos diesel a cada hora de trabalho.',
                     image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
                     badge: 'Destaque de Vendas',
                     tag: 'Alta Performance'

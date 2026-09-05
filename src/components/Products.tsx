@@ -61,7 +61,7 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
     {
       id: 'varrefort-s',
       name: mainOverrides['varrefort-s']?.name || 'Arruador de Café VarreFort-S',
-      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, zero perdas na varrição e até 20% menos diesel a cada hora.',
+      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando até 20% de diesel.',
       availability: 'Pronta Entrega',
       image: mainOverrides['varrefort-s']?.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
       badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Disponível Agora',
@@ -72,7 +72,7 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
     {
       id: 'varremax-x',
       name: mainOverrides['varremax-x']?.name || 'Recolhedora de Café AgroPasi',
-      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — testada e validada em campo. Concebida para o cafeicultor que busca alta velocidade na recolha.',
+      description: mainOverrides['varremax-x']?.description || 'Planejada sob o mesmo processo industrial que originou o VarreFort-S — está sendo testada e validada em campo. Concebida para o cafeicultor que busca alto rendimento na recolha.',
       availability: 'Pré-Lançamento',
       image: mainOverrides['varremax-x']?.image || 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80&w=600',
       badge: mainOverrides['varremax-x']?.badge !== undefined ? mainOverrides['varremax-x']?.badge : 'Próximo Lançamento',
@@ -105,7 +105,7 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
             Destaques do Catálogo
           </span>
           <h2 className="text-3xl sm:text-4xl font-sans font-bold tracking-tight text-zinc-100 mb-4">
-            Implementos Desenvolvidos para <span className="text-[#d48743]">Render no Campo</span>
+            Implementos Desenvolvidos para <span className="text-[#d48743]">Produzir Mais no Campo</span>
           </h2>
           <p className="text-zinc-400 text-sm sm:text-base">
             Equipamentos robustos construídos sob rígido controle industrial próprio, configurados para entregar economia de combustível, facilidade na manutenção e altíssima produtividade.
