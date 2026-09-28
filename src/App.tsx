@@ -26,8 +26,27 @@ export default function App() {
     }
     return 'site';
   });
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  const [view, setView] = useState<'home' | 'all-products' | 'blog'>('home');
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const prod = params.get('produto');
+      if (prod) return prod;
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#pecas') return 'pasiparts';
+      if (hash === '#varrefort-s') return 'varrefort-s';
+      if (hash === '#varremax-x') return 'varremax-x';
+    } catch (e) {}
+    return null;
+  });
+  const [view, setView] = useState<'home' | 'all-products' | 'blog'>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('view');
+      if (v === 'blog' || window.location.hash.toLowerCase() === '#blog') return 'blog';
+      if (v === 'all-products' || window.location.hash.toLowerCase() === '#catalogo') return 'all-products';
+    } catch (e) {}
+    return 'home';
+  });
   const [siteLogoUrl, setSiteLogoUrl] = useState<string>('');
 
   useEffect(() => {
@@ -39,6 +58,28 @@ export default function App() {
       } else {
         setRoute('site');
       }
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const prod = params.get('produto');
+        const v = params.get('view');
+        const hash = window.location.hash.toLowerCase();
+
+        if (prod) {
+          setSelectedProductId(prod);
+        } else if (hash === '#pecas') {
+          setSelectedProductId('pasiparts');
+        } else {
+          setSelectedProductId(null);
+        }
+
+        if (v === 'blog' || hash === '#blog') {
+          setView('blog');
+        } else if (v === 'all-products' || hash === '#catalogo') {
+          setView('all-products');
+        } else {
+          setView('home');
+        }
+      } catch (e) {}
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -152,17 +193,55 @@ export default function App() {
 
   const handleSelectProduct = (id: string) => {
     setSelectedProductId(id);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('produto', id);
+      url.searchParams.delete('view');
+      window.history.pushState({}, '', url.pathname + url.search);
+    } catch (e) {}
     window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleCloseProduct = () => {
+    setSelectedProductId(null);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('produto');
+      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+    } catch (e) {}
+  };
+
+  const handleBackToHome = () => {
+    setSelectedProductId(null);
+    setView('home');
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('produto');
+      url.searchParams.delete('view');
+      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+    } catch (e) {}
   };
 
   const handleNavigate = (hash?: string) => {
     if (hash === '#pecas') {
       setSelectedProductId('pasiparts');
       setView('home');
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('produto', 'pasiparts');
+        url.searchParams.delete('view');
+        window.history.pushState({}, '', url.pathname + url.search);
+      } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (hash === '#blog') {
       setSelectedProductId(null);
       setView('blog');
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('produto');
+        url.searchParams.set('view', 'blog');
+        window.history.pushState({}, '', url.pathname + url.search);
+      } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (hash === '#produtos') {
       if (view === 'home' && !selectedProductId) {
@@ -172,8 +251,7 @@ export default function App() {
           return;
         }
       }
-      setSelectedProductId(null);
-      setView('home');
+      handleBackToHome();
       requestAnimationFrame(() => {
         const el = document.getElementById('produtos');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -183,8 +261,7 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
-      setSelectedProductId(null);
-      setView('home');
+      handleBackToHome();
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (hash === '#contato') {
       if (view === 'home' && !selectedProductId) {
@@ -194,8 +271,7 @@ export default function App() {
           return;
         }
       }
-      setSelectedProductId(null);
-      setView('home');
+      handleBackToHome();
       requestAnimationFrame(() => {
         const el = document.getElementById('contato');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -237,17 +313,17 @@ export default function App() {
         {selectedProductId ? (
           <ProductDetailPage 
             productId={selectedProductId} 
-            onClose={() => setSelectedProductId(null)} 
+            onClose={handleCloseProduct} 
             onSelectProduct={handleSelectProduct}
           />
         ) : view === 'all-products' ? (
           <AllProductsPage 
             onSelectProduct={handleSelectProduct}
-            onBackToHome={() => setView('home')}
+            onBackToHome={handleBackToHome}
           />
         ) : view === 'blog' ? (
           <BlogPage 
-            onBackToHome={() => setView('home')}
+            onBackToHome={handleBackToHome}
           />
         ) : (
           <>

@@ -3,33 +3,76 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Página Inicial / Catálogo Geral -->
   <url>
     <loc>https://agropasi.com.br/</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Máquinas e Implementos em Destaque -->
   <url>
-    <loc>https://agropasi.com.br/#produtos</loc>
-    <lastmod>2026-09-04</lastmod>
+    <loc>https://agropasi.com.br/?produto=varrefort-s</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://agropasi.com.br/#pecas</loc>
-    <lastmod>2026-09-04</lastmod>
+    <loc>https://agropasi.com.br/?produto=varremax-x</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://agropasi.com.br/#blog</loc>
-    <lastmod>2026-09-04</lastmod>
+    <loc>https://agropasi.com.br/?produto=pasiparts</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Catálogo Completo & Conteúdos Técnicos -->
+  <url>
+    <loc>https://agropasi.com.br/?view=all-products</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://agropasi.com.br/?view=blog</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Âncoras Estruturais para Indexação de Seções -->
+  <url>
+    <loc>https://agropasi.com.br/#produtos</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agropasi.com.br/#pecas</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agropasi.com.br/#calculadora</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://agropasi.com.br/#representantes</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://agropasi.com.br/#contato</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
