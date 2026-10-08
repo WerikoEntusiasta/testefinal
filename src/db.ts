@@ -302,15 +302,15 @@ async function runInit() {
   // Seed or sync admin accounts with environment variables
   const vendasEmail = process.env.VENDAS_EMAIL || 'vendas@agropasi.com.br';
   const vendasPassword = process.env.VENDAS_PASSWORD || 'Vendas@AgroPasi2026!';
-  const donoEmail = process.env.DONO_EMAIL || 'dono@agropasi.com.br';
-  const donoPassword = process.env.DONO_PASSWORD || 'Dono@AgroPasi2026!';
+  const donoEmail = process.env.DONO_EMAIL || process.env.ADMIN_EMAIL || process.env.ADMIN_USER || 'dono@agropasi.com.br';
+  const donoPassword = process.env.DONO_PASSWORD || process.env.ADMIN_PASSWORD || 'Dono@AgroPasi2026!';
 
   // Equipe de Vendas Account
   const salesUser = await dbGet('SELECT id FROM users WHERE role = ?', ['vendas']);
   const salesHash = bcrypt.hashSync(vendasPassword, 12);
   if (salesUser) {
     await dbRun(
-      'UPDATE users SET email = ?, password_hash = ? WHERE id = ?',
+      'UPDATE users SET email = ?, password_hash = ?, failed_login_attempts = 0, lockout_until = 0 WHERE id = ?',
       [vendasEmail, salesHash, salesUser.id]
     );
   } else {
@@ -321,12 +321,12 @@ async function runInit() {
     );
   }
 
-  // Proprietário Account (Dono)
+  // Proprietário Account (Dono / Administrador Geral)
   const ownerUser = await dbGet('SELECT id FROM users WHERE role = ?', ['dono']);
   const ownerHash = bcrypt.hashSync(donoPassword, 12);
   if (ownerUser) {
     await dbRun(
-      'UPDATE users SET email = ?, password_hash = ? WHERE id = ?',
+      'UPDATE users SET email = ?, password_hash = ?, failed_login_attempts = 0, lockout_until = 0 WHERE id = ?',
       [donoEmail, ownerHash, ownerUser.id]
     );
   } else {
@@ -459,7 +459,7 @@ async function runInit() {
       id: 'p_1',
       title: 'Como regular o arruador de café para evitar perdas no chão',
       category: 'Regulagem de Máquinas',
-      excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e garante 100% de recolhimento de grãos.',
+      excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e maximiza o recolhimento de grãos.',
       content: `## 1. Alinhamento e Paralelismo do Implemento
 A regulagem perfeita inicia verificando o [mark verde | paralelismo do implemento agrícola] em relação ao solo da fileira. O operador deve ajustar o comprimento do terceiro ponto de forma que o arruador trabalhe perfeitamente plano.
 
@@ -511,7 +511,7 @@ Antes de guardar o maquinário no galpão para a entressafra, aplique uma fina c
     },
     {
       id: 'p_3',
-      title: 'Por que o menor RPM de operation economiza diesel no trator?',
+      title: 'Por que o menor RPM de operação economiza diesel no trator?',
       category: 'Cafeicultura Moderna',
       excerpt: 'Descubra a física mecânica por trás das engrenagens multiplicadoras de torque da AgroPasi e como elas poupam combustível com rotação de motor suave.',
       content: `## 1. O Mito da Alta Rotação no Cafezal
@@ -715,7 +715,7 @@ A redução da rotação de trabalho não só poupa combustível, mas também [c
         benefitsJson: JSON.stringify([
           { title: 'Economia Direta de Diesel', desc: 'Multiplicadores de torque próprios permitem vento máximo em baixa rotação.' },
           { title: 'Preservação das Raízes', desc: 'Chassis leve de 456kg evita a compactação severa sob as copas.' },
-          { title: 'Peças de Reposição 100% Prontas', desc: 'Todo o fornecimento é usinado internamente com envio em 24h.' }
+          { title: 'Peças de Reposição Genuínas', desc: 'Todo o fornecimento é usinado internamente com pronta reposição e envio ágil.' }
         ])
       },
       {

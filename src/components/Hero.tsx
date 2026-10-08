@@ -17,9 +17,7 @@ export default function Hero({ onSelectProduct, onNavigate }: HeroProps) {
     'Não somos estreantes. A AgroPasi carrega 60 anos de indústria familiar para dentro do campo. Cada implemento que fabricamos nasce com um objetivo claro: trabalhar mais com menos combustível — e deixar menos café no chão.'
   );
   const [badge, setBadge] = useState('FAMÍLIA INDUSTRIAL DESDE 1960');
-  const [photoUrl, setPhotoUrl] = useState(
-    'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1600'
-  );
+  const [photoUrl, setPhotoUrl] = useState('/cafezal-panoramico.jpg');
 
   const loadCmsData = () => {
     try {
@@ -196,48 +194,25 @@ export default function Hero({ onSelectProduct, onNavigate }: HeroProps) {
           >
             <div className="relative w-full max-w-md bg-zinc-900/90 border border-zinc-800 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl transition hover:border-zinc-700">
               
-              {/* Foto Real de Campo como Protagonista */}
+              {/* Foto Real de Campo como Protagonista (Cafezal) */}
               <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-zinc-950">
                 <img
-                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800"
-                  alt="Arruador de Café VarreFort-S operando na lavoura cafeeira"
+                  src="/cafezal.jpg"
+                  alt="Cafezal brasileiro de alta produtividade"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
                 
                 {/* Badges superiores flutuantes */}
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
                   <span className="bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[#d48743] text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full font-mono">
                     Implemento em Ação
                   </span>
-                  <span className="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1.5">
+                  <span className="bg-[#d48743] text-white text-[9px] font-extrabold uppercase px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1.5 font-mono">
                     <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    Pronta Entrega
+                    Sob Consulta
                   </span>
-                </div>
-
-                {/* Ficha Técnica Semi-transparente sobreposta no canto inferior da imagem */}
-                <div className="absolute bottom-3 left-3 right-3 bg-zinc-950/85 backdrop-blur-md border border-zinc-800/90 p-3 rounded-xl grid grid-cols-2 gap-3 text-xs">
-                  <div className="flex items-center space-x-2">
-                    <div className="p-1.5 bg-[#d48743]/20 text-[#d48743] rounded-lg shrink-0">
-                      <Wrench className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Acoplamento</span>
-                      <strong className="text-zinc-100 text-xs">3 Pontos Cat II</strong>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <div className="p-1.5 bg-[#d48743]/20 text-[#d48743] rounded-lg shrink-0">
-                      <Flame className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <span className="block text-[9px] text-zinc-400 uppercase font-semibold">Baixa Rotação</span>
-                      <strong className="text-[#d48743] text-xs font-mono">1.300 - 1.500 RPM</strong>
-                    </div>
-                  </div>
                 </div>
               </div>
 

@@ -4,11 +4,32 @@ import AgroPasiLogo from './AgroPasiLogo';
 
 interface FooterProps {
   logoUrl?: string;
+  onNavigate?: (hash?: string) => void;
+  onSelectProduct?: (id: string) => void;
 }
 
-export default function Footer({ logoUrl }: FooterProps) {
+export default function Footer({ logoUrl, onNavigate, onSelectProduct }: FooterProps) {
   const scrollUp = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavClick = (hash: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(hash);
+    } else {
+      const el = document.getElementById(hash.replace('#', ''));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleProductClick = (id: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onSelectProduct) {
+      onSelectProduct(id);
+    } else if (onNavigate) {
+      onNavigate('#produtos');
+    }
   };
 
   return (
@@ -63,10 +84,10 @@ export default function Footer({ logoUrl }: FooterProps) {
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs uppercase font-bold text-zinc-300 tracking-widest" style={{ color: '#ffffff' }}>Navegação</h4>
             <ul className="text-xs text-zinc-400 space-y-2.5 font-sans" style={{ color: '#ffffff' }}>
-              <li><a href="#inicio" className="hover:text-[#d48743] transition mb-0.5">Início</a></li>
-              <li><a href="#sobre" className="hover:text-[#d48743] transition mb-0.5">Sobre Nós</a></li>
-              <li><a href="#produtos" className="hover:text-[#d48743] transition mb-0.5">Produtos</a></li>
-              <li><a href="#colhedora" className="hover:text-[#d48743] transition mb-0.5">Lançamentos</a></li>
+              <li><a href="#inicio" onClick={(e) => handleNavClick('#inicio', e)} className="hover:text-[#d48743] transition mb-0.5 cursor-pointer">Início</a></li>
+              <li><a href="#sobre" onClick={(e) => handleNavClick('#sobre', e)} className="hover:text-[#d48743] transition mb-0.5 cursor-pointer">Sobre Nós</a></li>
+              <li><a href="#produtos" onClick={(e) => handleNavClick('#produtos', e)} className="hover:text-[#d48743] transition mb-0.5 cursor-pointer">Produtos</a></li>
+              <li><a href="#produtos" onClick={(e) => handleProductClick('varremax-x', e)} className="hover:text-[#d48743] transition mb-0.5 cursor-pointer">Lançamentos</a></li>
             </ul>
           </div>
 
@@ -74,10 +95,9 @@ export default function Footer({ logoUrl }: FooterProps) {
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs uppercase font-bold text-zinc-300 tracking-widest font-sans" style={{ color: '#ffffff' }}>Especialidades</h4>
             <ul className="text-xs text-zinc-400 space-y-2.5 font-sans" style={{ color: '#ffffff' }}>
-              <li><a href="#calculadora" className="hover:text-[#d48743] transition">Calculadora de Economia</a></li>
-
-              <li><a href="#faq" className="hover:text-[#d48743] transition">FAQ de Dúvidas Técnicas</a></li>
-              <li><a href="#blog" className="hover:text-[#d48743] transition">Dicas do Campo / Blog</a></li>
+              <li><a href="#calculadora" onClick={(e) => handleProductClick('varrefort-s', e)} className="hover:text-[#d48743] transition cursor-pointer">Calculadora de Economia</a></li>
+              <li><a href="#faq" onClick={(e) => handleProductClick('varrefort-s', e)} className="hover:text-[#d48743] transition cursor-pointer">FAQ de Dúvidas Técnicas</a></li>
+              <li><a href="#blog" onClick={(e) => handleNavClick('#blog', e)} className="hover:text-[#d48743] transition cursor-pointer">Dicas do Campo / Blog</a></li>
             </ul>
           </div>
 
@@ -92,16 +112,10 @@ export default function Footer({ logoUrl }: FooterProps) {
                   <span className="text-zinc-500 font-mono" style={{ color: '#ffffff' }}>CEP 15802-200</span>
                 </span>
               </li>
-              <li className="flex flex-col gap-1.5" style={{ color: '#ffffff' }}>
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 text-[#d48743] shrink-0 mr-2.5" />
-                  <span className="text-zinc-400 mr-1" style={{ color: '#ffffff' }}>José (SP/Fábrica):</span>
-                  <a href="https://wa.me/5517996355842" target="_blank" rel="noopener noreferrer" className="hover:text-[#d48743] text-white transition font-bold font-mono">(17) 99635-5842</a>
-                </div>
-                <div className="flex items-center pl-6.5 text-zinc-400">
-                  <span className="mr-1" style={{ color: '#ffffff' }}>Djalma (MG):</span>
-                  <a href="https://wa.me/5535998993966" target="_blank" rel="noopener noreferrer" className="hover:text-[#d48743] text-white transition font-medium font-mono">(35) 99899-3966</a>
-                </div>
+              <li className="flex items-center" style={{ color: '#ffffff' }}>
+                <Phone className="w-4 h-4 text-[#d48743] shrink-0 mr-2.5" />
+                <span className="text-zinc-400 mr-1" style={{ color: '#ffffff' }}>WhatsApp Fábrica:</span>
+                <a href="https://wa.me/5517996355842" target="_blank" rel="noopener noreferrer" className="hover:text-[#d48743] text-white transition font-bold font-mono">(17) 99635-5842</a>
               </li>
               <li className="flex items-center">
                 <Mail className="w-4 h-4 text-[#d48743] shrink-0 mr-2.5" />

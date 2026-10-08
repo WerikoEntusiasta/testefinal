@@ -281,24 +281,13 @@ WhatsApp / Comercial: (17) 99635-5842
             {/* Visual Column */}
             <div className="lg:col-span-6 space-y-6">
               <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 relative overflow-hidden">
-                <div className="absolute top-4 left-4 bg-emerald-600 text-white font-extrabold text-[9px] uppercase px-2.5 py-1 rounded font-mono shadow-md">
-                  Pronta Entrega
-                </div>
-                <div className="absolute top-4 right-4 bg-[#d48743]/20 border border-[#d48743]/40 text-[#d48743] font-extrabold text-[9px] uppercase px-2.5 py-1 rounded font-mono">
-                  Economia 20% Diesel
-                </div>
-
-                <div className="w-full h-64 sm:h-80 flex items-center justify-center relative select-none bg-zinc-950 rounded-2xl border border-zinc-800 overflow-hidden mt-4">
+                <div className="w-full h-64 sm:h-80 flex items-center justify-center relative select-none bg-zinc-950 rounded-2xl border border-zinc-800 overflow-hidden">
                   <img 
-                    src={saved.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1200'} 
+                    src={saved.image || '/cafezal.jpg'} 
                     alt={saved.name || "Arruador de Café VarreFort-S"} 
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute bottom-4 right-4 bg-zinc-950/85 p-2.5 rounded-lg border border-zinc-800 backdrop-blur-sm text-right">
-                    <span className="text-[10px] text-[#d48743] font-bold block">Demonstração em Campo</span>
-                    <span className="text-[8px] text-zinc-400 font-mono">AgroPasi VarreFort-S</span>
-                  </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3 text-center">
@@ -322,8 +311,8 @@ WhatsApp / Comercial: (17) 99635-5842
             <div className="lg:col-span-6 space-y-8">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-white bg-emerald-600 uppercase tracking-widest px-3 py-1 rounded font-mono">
-                    Disponível Agora
+                  <span className="text-[10px] font-bold text-white bg-[#d48743] uppercase tracking-widest px-3 py-1 rounded font-mono">
+                    Sob Consulta
                   </span>
                   <span className="text-[10px] font-bold text-[#d48743] bg-[#d48743]/15 border border-[#d48743]/30 uppercase tracking-widest px-3 py-1 rounded font-mono">
                     100% Nacional
@@ -481,44 +470,21 @@ WhatsApp / Comercial: (17) 99635-5842
                   Garanta Condições Especiais no VarreFort-S
                 </h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Preencha abaixo para receber a proposta comercial com frete para a sua região e opções de pagamento direto.
+                  Fale diretamente com nossos consultores de fábrica no WhatsApp para receber proposta comercial com frete para a sua região e opções de pagamento direto.
                 </p>
               </div>
 
-              <form onSubmit={handleFormSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <input
-                  type="text"
-                  required
-                  placeholder="Seu Nome *"
-                  value={formName}
-                  onChange={(e) => setFormName(e.target.value)}
-                  className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#d48743]"
-                />
-                <input
-                  type="tel"
-                  required
-                  placeholder="WhatsApp / Telefone *"
-                  value={formPhone}
-                  onChange={(e) => setFormPhone(e.target.value)}
-                  className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#d48743]"
-                />
-                <input
-                  type="text"
-                  placeholder="CEP ou Cidade (Opcional)"
-                  value={formCep}
-                  onChange={(e) => setFormCep(e.target.value)}
-                  className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#d48743]"
-                />
-                <div className="sm:col-span-3 pt-2">
-                  <button
-                    type="submit"
-                    className="w-full bg-[#d48743] hover:bg-[#c27a41] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-lg transition"
-                  >
-                    <WhatsAppIcon className="w-4 h-4" />
-                    <span>{formSuccess ? 'Enviando ao WhatsApp...' : 'Receber Proposta Comercial no WhatsApp'}</span>
-                  </button>
-                </div>
-              </form>
+              <div className="pt-2">
+                <a
+                  href="https://wa.me/5517996355842?text=Olá!%20Vim%20através%20do%20site%20da%20AgroPasi.%0ATenho%20interesse%20em:%20Arruador%20VarreFort-S%0AGostaria%20de%20receber%20mais%20informações."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#d48743] hover:bg-[#c27a41] text-white px-8 py-4 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider cursor-pointer shadow-lg transition"
+                >
+                  <WhatsAppIcon className="w-5 h-5" />
+                  <span>Falar no WhatsApp</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -735,15 +701,15 @@ WhatsApp / Comercial: (17) 99635-5842
             </h1>
 
             <p className="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-              Como possuímos parque fabril completo com corte a laser e usinagem de precisão, mantemos estoque de engrenagens, eixos, rolamentos e bicos para envio imediato (em até 24 horas) para todo o Brasil. Também fabricamos implementos customizados para a sua lavoura.
+              Como possuímos parque fabril próprio com corte a laser e usinagem de precisão, mantemos estoque de engrenagens, eixos, rolamentos e bicos para pronta reposição e envio ágil para todo o Brasil. Também fabricamos implementos customizados para a sua lavoura.
             </p>
           </div>
 
           {/* 3 Pillars of Parts */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-850 space-y-2">
-              <span className="text-[#d48743] font-bold text-xs uppercase font-mono block">Envio em 24h</span>
-              <p className="text-xs text-zinc-400 leading-relaxed">Estoque permanente de peças para que a sua colheita nunca fique parada.</p>
+              <span className="text-[#d48743] font-bold text-xs uppercase font-mono block">Pronta Reposição</span>
+              <p className="text-xs text-zinc-400 leading-relaxed">Estoque contínuo de componentes para que a sua colheita nunca fique parada.</p>
             </div>
             <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-850 space-y-2">
               <span className="text-[#d48743] font-bold text-xs uppercase font-mono block">Aço Certificado</span>

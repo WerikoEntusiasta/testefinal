@@ -12,7 +12,7 @@ const INITIAL_POSTS: BlogPost[] = [
     id: 'p_1',
     title: 'Como regular o arruador de café para evitar perdas no chão',
     category: 'Regulagem de Máquinas',
-    excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e garante 100% de recolhimento de grãos.',
+    excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e maximiza o recolhimento de grãos.',
     content: `## 1. Alinhamento e Paralelismo do Implemento
 A regulagem perfeita inicia verificando o [mark verde | paralelismo do implemento agrícola] em relação ao solo da fileira. O operador deve ajustar o comprimento do terceiro ponto de forma que o arruador trabalhe perfeitamente plano.
 
@@ -147,11 +147,11 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation & Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-zinc-900 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-900 mb-10">
           <div className="space-y-2">
             <button
               onClick={onBackToHome}
-              className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-[#d48743] transition mb-2"
+              className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-[#d48743] transition mb-2 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 mr-1.5" />
               Voltar ao Início
@@ -164,8 +164,8 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
             </p>
           </div>
 
-          <div className="flex items-center space-x-2 shrink-0">
-            <span className="text-[11px] font-mono font-bold text-white bg-[#d48743] px-3 py-1.5 rounded-lg border border-[#d48743] uppercase">
+          <div className="flex items-center space-x-2 shrink-0 self-start md:self-end">
+            <span className="text-[11px] font-mono font-bold text-white bg-[#d48743] px-3.5 py-2 rounded-xl border border-[#d48743] uppercase tracking-wider">
               Escrito por Engenheiros
             </span>
           </div>
@@ -174,8 +174,8 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
         {/* Searching & Categories filter row */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
           {/* Search bar */}
-          <div className="lg:col-span-4 relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <div className="lg:col-span-4 relative flex items-center">
+            <Search className="absolute left-3.5 w-4 h-4 text-zinc-500 pointer-events-none" />
             <input
               type="text"
               placeholder="Buscar artigos técnicos..."
@@ -305,27 +305,6 @@ export default function BlogPage({ onBackToHome }: BlogPageProps) {
             ))}
           </div>
         )}
-
-        {/* Technical help section */}
-        <div className="mt-16 bg-gradient-to-r from-zinc-900 to-zinc-950 border border-zinc-850 rounded-3xl p-8 sm:p-10 text-center max-w-3xl mx-auto space-y-4">
-          <div className="w-12 h-12 bg-emerald-950/50 border border-emerald-900 text-emerald-400 flex items-center justify-center rounded-full mx-auto">
-            <BookmarkCheck className="w-6 h-6" />
-          </div>
-          <h3 className="text-xl font-bold text-white font-sans">Dúvida sobre regulagem técnica na lavoura?</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            Seja regulando o fluxo de vento ou ajustando a altura das cerdas recolhedoras AgroPasi, nossos engenheiros dão suporte direto por telefone para garantir o rendimento ideal na sua colheita.
-          </p>
-          <div className="pt-2">
-            <a
-              href="https://wa.me/5517991066796?text=Olá,%20gostaria%20de%20tirar%20uma%20duvida%20tecnica%20sobre%20as%20regulagens%20de%20campo!"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="inline-flex items-center bg-zinc-900 hover:bg-zinc-850 text-[#d48743] border border-zinc-800 px-5 py-2.5 rounded-xl text-xs font-bold transition"
-            >
-              Falar Direto com Plantão Técnico
-            </a>
-          </div>
-        </div>
 
         {/* Modal display for selected article reading */}
         {selectedPost && (

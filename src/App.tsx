@@ -17,69 +17,53 @@ import BlogPage from './components/BlogPage';
 import CookieConsent from './components/CookieConsent';
 import { api, sanitizeOverrides } from './lib/api';
 
+function parseUrlState() {
+  const path = window.location.pathname.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const params = new URLSearchParams(window.location.search);
+
+  let newRoute: 'site' | 'admin' = 'site';
+  if (path.startsWith('/admin') || search.includes('admin')) {
+    newRoute = 'admin';
+  }
+
+  let newProduct: string | null = null;
+  if (path === '/varrefort-s' || path.startsWith('/produto/varrefort-s') || params.get('produto') === 'varrefort-s' || hash === '#varrefort-s') {
+    newProduct = 'varrefort-s';
+  } else if (path === '/varremax-x' || path.startsWith('/produto/varremax-x') || params.get('produto') === 'varremax-x' || hash === '#varremax-x') {
+    newProduct = 'varremax-x';
+  } else if (path === '/pecas' || path.startsWith('/produto/pasiparts') || params.get('produto') === 'pasiparts' || hash === '#pecas') {
+    newProduct = 'pasiparts';
+  } else if (params.get('produto')) {
+    newProduct = params.get('produto');
+  }
+
+  let newView: 'home' | 'all-products' | 'blog' = 'home';
+  if (newProduct) {
+    newView = 'home';
+  } else if (path === '/blog' || params.get('view') === 'blog' || hash === '#blog') {
+    newView = 'blog';
+  } else if (path === '/produtos' || path === '/catalogo' || params.get('view') === 'all-products' || hash === '#produtos' || hash === '#catalogo') {
+    newView = 'all-products';
+  }
+
+  return { newRoute, newProduct, newView };
+}
+
 export default function App() {
-  const [route, setRoute] = useState<'site' | 'admin'>(() => {
-    const path = window.location.pathname.toLowerCase();
-    const search = window.location.search.toLowerCase();
-    if (path.startsWith('/admin') || search.includes('admin')) {
-      return 'admin';
-    }
-    return 'site';
-  });
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(() => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const prod = params.get('produto');
-      if (prod) return prod;
-      const hash = window.location.hash.toLowerCase();
-      if (hash === '#pecas') return 'pasiparts';
-      if (hash === '#varrefort-s') return 'varrefort-s';
-      if (hash === '#varremax-x') return 'varremax-x';
-    } catch (e) {}
-    return null;
-  });
-  const [view, setView] = useState<'home' | 'all-products' | 'blog'>(() => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const v = params.get('view');
-      if (v === 'blog' || window.location.hash.toLowerCase() === '#blog') return 'blog';
-      if (v === 'all-products' || window.location.hash.toLowerCase() === '#catalogo') return 'all-products';
-    } catch (e) {}
-    return 'home';
-  });
+  const initialState = parseUrlState();
+  const [route, setRoute] = useState<'site' | 'admin'>(initialState.newRoute);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(initialState.newProduct);
+  const [view, setView] = useState<'home' | 'all-products' | 'blog'>(initialState.newView);
   const [siteLogoUrl, setSiteLogoUrl] = useState<string>('');
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname.toLowerCase();
-      const search = window.location.search.toLowerCase();
-      if (path.startsWith('/admin') || search.includes('admin')) {
-        setRoute('admin');
-      } else {
-        setRoute('site');
-      }
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const prod = params.get('produto');
-        const v = params.get('view');
-        const hash = window.location.hash.toLowerCase();
-
-        if (prod) {
-          setSelectedProductId(prod);
-        } else if (hash === '#pecas') {
-          setSelectedProductId('pasiparts');
-        } else {
-          setSelectedProductId(null);
-        }
-
-        if (v === 'blog' || hash === '#blog') {
-          setView('blog');
-        } else if (v === 'all-products' || hash === '#catalogo') {
-          setView('all-products');
-        } else {
-          setView('home');
-        }
-      } catch (e) {}
+      const current = parseUrlState();
+      setRoute(current.newRoute);
+      setSelectedProductId(current.newProduct);
+      setView(current.newView);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -93,8 +77,8 @@ export default function App() {
       title = "AgroPasi | Portal Gerencial & Admin";
       desc = "Painel administrativo de controle de catálogo, representantes e configurações da AgroPasi.";
     } else if (selectedProductId === 'varrefort-s') {
-      title = "VarreFort-S | Arruador e Soprador de Café (Pronta Entrega) — AgroPasi";
-      desc = "Conheça o Arruador Soprador VarreFort-S da AgroPasi. Arruação de alta eficiência em baixa rotação (1200-1500 RPM), economia de até 20% de diesel e pronta entrega.";
+      title = "VarreFort-S | Arruador e Soprador de Café (Sob Consulta) — AgroPasi";
+      desc = "Conheça o Arruador Soprador VarreFort-S da AgroPasi. Arruação de alta eficiência em baixa rotação (1200-1500 RPM), economia de até 20% de diesel e fabricação nacional.";
     } else if (selectedProductId === 'varremax-x') {
       title = "Recolhedora de Café AgroPasi | Pré-Lançamento em Testes de Campo";
       desc = "Recolhedora mecânica de café AgroPasi. Alta capacidade de recolhimento, pureza de grãos e robustez industrial para a cafeicultura brasileira.";
@@ -193,11 +177,10 @@ export default function App() {
 
   const handleSelectProduct = (id: string) => {
     setSelectedProductId(id);
+    setView('home');
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.set('produto', id);
-      url.searchParams.delete('view');
-      window.history.pushState({}, '', url.pathname + url.search);
+      const cleanPath = id === 'pasiparts' ? '/pecas' : `/${id}`;
+      window.history.pushState({}, '', cleanPath);
     } catch (e) {}
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
@@ -205,9 +188,7 @@ export default function App() {
   const handleCloseProduct = () => {
     setSelectedProductId(null);
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('produto');
-      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+      window.history.pushState({}, '', '/');
     } catch (e) {}
   };
 
@@ -215,79 +196,74 @@ export default function App() {
     setSelectedProductId(null);
     setView('home');
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('produto');
-      url.searchParams.delete('view');
-      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+      window.history.pushState({}, '', '/');
     } catch (e) {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigate = (hash?: string) => {
-    if (hash === '#pecas') {
+  const handleNavigate = (dest?: string) => {
+    if (!dest) return;
+    if (dest === '/pecas' || dest === '#pecas') {
       setSelectedProductId('pasiparts');
       setView('home');
       try {
-        const url = new URL(window.location.href);
-        url.searchParams.set('produto', 'pasiparts');
-        url.searchParams.delete('view');
-        window.history.pushState({}, '', url.pathname + url.search);
+        window.history.pushState({}, '', '/pecas');
       } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' });
-    } else if (hash === '#blog') {
+    } else if (dest === '/blog' || dest === '#blog') {
       setSelectedProductId(null);
       setView('blog');
       try {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('produto');
-        url.searchParams.set('view', 'blog');
-        window.history.pushState({}, '', url.pathname + url.search);
+        window.history.pushState({}, '', '/blog');
       } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' });
-    } else if (hash === '#produtos') {
-      if (view === 'home' && !selectedProductId) {
-        const el = document.getElementById('produtos');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-          return;
-        }
-      }
-      handleBackToHome();
-      requestAnimationFrame(() => {
-        const el = document.getElementById('produtos');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      });
-    } else if (hash === '#inicio') {
-      if (view === 'home' && !selectedProductId) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-      handleBackToHome();
+    } else if (dest === '/produtos' || dest === '#produtos' || dest === '#catalogo') {
+      setSelectedProductId(null);
+      setView('all-products');
+      try {
+        window.history.pushState({}, '', '/produtos');
+      } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' });
-    } else if (hash === '#contato') {
-      if (view === 'home' && !selectedProductId) {
-        const el = document.getElementById('contato');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-          return;
-        }
-      }
+    } else if (dest === '/' || dest === '#inicio') {
       handleBackToHome();
-      requestAnimationFrame(() => {
+    } else if (dest === '#contato') {
+      if (view !== 'home' || selectedProductId) {
+        setSelectedProductId(null);
+        setView('home');
+        try {
+          window.history.pushState({}, '', '/#contato');
+        } catch (e) {}
+        setTimeout(() => {
+          const el = document.getElementById('contato');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 60);
+      } else {
         const el = document.getElementById('contato');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      });
+      }
+    } else if (dest === '#sobre') {
+      if (view !== 'home' || selectedProductId) {
+        setSelectedProductId(null);
+        setView('home');
+        try {
+          window.history.pushState({}, '', '/#sobre');
+        } catch (e) {}
+        setTimeout(() => {
+          const el = document.getElementById('sobre');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 60);
+      } else {
+        const el = document.getElementById('sobre');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
       setSelectedProductId(null);
       setView('home');
-      if (hash) {
-        const targetId = hash.replace('#', '');
-        requestAnimationFrame(() => {
-          const element = document.getElementById(targetId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      }
+      const targetId = dest.replace('#', '').replace('/', '');
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
     }
   };
 
@@ -356,7 +332,11 @@ export default function App() {
       </main>
 
       {/* Complete Footer Section */}
-      <Footer logoUrl={siteLogoUrl} />
+      <Footer 
+        logoUrl={siteLogoUrl} 
+        onNavigate={handleNavigate}
+        onSelectProduct={handleSelectProduct}
+      />
       
       {/* LGPD Cookie Consent Banner (com fadeout de 30s) */}
       <CookieConsent />

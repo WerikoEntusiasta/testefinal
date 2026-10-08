@@ -56,16 +56,16 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
     return () => window.removeEventListener('storage_updated', handleUpdate);
   }, []);
 
-  // Three core main products with distinct status colors
+  // Core machines (VarreFort-S e Recolhedora — Peças alocada em sua seção própria)
   const mainProducts = [
     {
       id: 'varrefort-s',
       name: mainOverrides['varrefort-s']?.name || 'Arruador de Café VarreFort-S',
-      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando até 20% de diesel.',
-      availability: 'Pronta Entrega',
-      image: mainOverrides['varrefort-s']?.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
-      badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Disponível Agora',
-      badgeColor: 'bg-emerald-600 text-white',
+      description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando combustível a cada hora de trabalho.',
+      availability: mainOverrides['varrefort-s']?.availability || 'Sob Consulta',
+      image: mainOverrides['varrefort-s']?.image || '/cafezal.jpg',
+      badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Sob Consulta',
+      badgeColor: 'bg-[#d48743] text-white',
       tag: mainOverrides['varrefort-s']?.tag || 'Alta Performance',
       specs: ['Baixo Giro (1300 RPM)', 'Turbina Balanceada', 'Economia de Diesel']
     },
@@ -79,17 +79,6 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
       badgeColor: 'bg-[#d48743] text-white',
       tag: mainOverrides['varremax-x']?.tag || 'Colheita Mecanizada',
       specs: ['Peneira Vibratória', 'Turbina Sucção Dupla', 'Basculante 1500L']
-    },
-    {
-      id: 'pasiparts',
-      name: mainOverrides['pasiparts']?.name || 'Peças de Reposição & Suporte Técnico',
-      description: mainOverrides['pasiparts']?.description || 'Fabricação própria de componentes, eixos, engrenagens e rolamentos autocompensadores para pronta entrega e projetos sob medida para sua lavoura.',
-      availability: 'Envio Imediato',
-      image: mainOverrides['pasiparts']?.image || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600',
-      badge: mainOverrides['pasiparts']?.badge !== undefined ? mainOverrides['pasiparts']?.badge : 'Suporte de Fábrica',
-      badgeColor: 'bg-zinc-750 text-zinc-200 border border-zinc-700',
-      tag: mainOverrides['pasiparts']?.tag || 'Peças Genuínas',
-      specs: ['Engrenagens Próprias', 'Aço Certificado', 'Rolamentos Genuínos']
     }
   ];
 
@@ -112,8 +101,8 @@ export default function Products({ onSelectProduct, onViewAllProducts }: Product
           </p>
         </div>
 
-        {/* 3 Core Highlighted Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-12">
+        {/* Core Highlighted Products Grid */}
+        <div className={`grid grid-cols-1 ${customProducts.length > 0 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2 max-w-5xl mx-auto'} gap-8 items-stretch mb-12`}>
           {mainProducts.map((product) => (
             <div 
               key={product.id}

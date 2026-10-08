@@ -48,10 +48,10 @@ export const REPRESENTATIVES: Representative[] = [
 ];
 
 const INTEREST_OPTIONS = [
-  { id: 'varrefort', label: 'Arruador VarreFort-S', messageText: 'Gostaria de receber orçamento e condições para o Arruador Soprador VarreFort-S.' },
-  { id: 'pecas', label: 'Peças de Reposição', messageText: 'Preciso de cotação e envio rápido de peças de reposição da AgroPasi.' },
-  { id: 'recolhedora', label: 'Recolhedora de Café', messageText: 'Quero informações técnicas e lista de espera do pré-lançamento da Recolhedora de Café.' },
-  { id: 'outro', label: 'Outro Assunto / Dúvidas', messageText: 'Olá! Gostaria de falar com um consultor da AgroPasi.' }
+  { id: 'varrefort', label: 'Arruador VarreFort-S', itemTitle: 'Arruador VarreFort-S' },
+  { id: 'pecas', label: 'Peças de Reposição', itemTitle: 'Peças de Reposição' },
+  { id: 'recolhedora', label: 'Recolhedora de Café', itemTitle: 'Recolhedora de Café' },
+  { id: 'outro', label: 'Outro Assunto / Dúvidas', itemTitle: 'Outro Assunto/Dúvidas' }
 ];
 
 interface CepLocatorProps {
@@ -124,10 +124,7 @@ export default function CepLocator({ variant = 'full' }: CepLocatorProps) {
 
   const handleOpenWhatsApp = () => {
     const selectedObj = INTEREST_OPTIONS.find(o => o.id === selectedInterest) || INTEREST_OPTIONS[0];
-    let msg = `Olá! Vi o site da AgroPasi. ${selectedObj.messageText}`;
-    if (cep) {
-      msg += ` Meu CEP é ${cep}.`;
-    }
+    const msg = `Olá! Vim através do site da AgroPasi.\nTenho interesse em: ${selectedObj.itemTitle}\nGostaria de receber mais informações.`;
 
     const cleanPhone = detectedRep.phone.replace(/\D/g, '');
     const finalPhone = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`;
@@ -230,18 +227,18 @@ export default function CepLocator({ variant = 'full' }: CepLocatorProps) {
             </button>
           </div>
 
-          {/* Direct Phone & Email Fallback details */}
-          <div className="pt-6 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-400">
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#d48743]" />
-              <span>WhatsApp & Atendimento Fábrica: <strong className="text-zinc-200 font-mono">(17) 99635-5842</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Atendimento Direto de Fábrica (Seg a Sex 07h às 17h30)</span>
-            </div>
-          </div>
+        </div>
 
+        {/* Informações de Atendimento Direto — Fora do retângulo do formulário */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 px-2 sm:px-4">
+          <div className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-[#d48743]" />
+            <span>WhatsApp & Atendimento Fábrica: <strong className="text-zinc-200 font-mono">(17) 99635-5842</strong></span>
+          </div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span>Atendimento Direto de Fábrica (Seg a Sex 07h às 17h30)</span>
+          </div>
         </div>
 
       </div>

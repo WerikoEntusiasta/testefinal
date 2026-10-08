@@ -11,10 +11,10 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Início', href: '#inicio' },
-    { label: 'Produtos', href: '#produtos' },
-    { label: 'Peças', href: '#pecas' },
-    { label: 'Blog', href: '#blog' },
+    { label: 'Início', href: '/' },
+    { label: 'Produtos', href: '/produtos' },
+    { label: 'Peças', href: '/pecas' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Contato', href: '#contato' },
   ];
 
@@ -33,7 +33,14 @@ export default function Header({ onNavigate, logoUrl }: HeaderProps) {
         <div className="flex items-center justify-between h-20">
           
           {/* Logo and Brand */}
-          <a href="#inicio" onClick={() => handleLinkClick('#inicio')} className="flex items-center space-x-3 group shrink-0">
+          <a 
+            href="#inicio" 
+            onClick={(e) => {
+              e.preventDefault();
+              handleLinkClick('#inicio');
+            }} 
+            className="flex items-center space-x-3 group shrink-0 cursor-pointer"
+          >
             <AgroPasiLogo size="md" showSubtitle={true} logoUrl={logoUrl} />
           </a>
 

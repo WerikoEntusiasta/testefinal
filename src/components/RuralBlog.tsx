@@ -8,7 +8,7 @@ const INITIAL_POSTS: BlogPost[] = [
     id: 'p_1',
     title: 'Como regular o arruador de café para evitar perdas no chão',
     category: 'Regulagem de Máquinas',
-    excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e garante 100% de recolhimento de grãos.',
+    excerpt: 'Ajustar a altura das cerdas dianteiras e regular a pressão hidráulica das sapatas deslizes previne danos mecânicos na lavoura e maximiza o recolhimento de grãos.',
     content: `## 1. Alinhamento e Paralelismo do Implemento
 A regulagem perfeita inicia verificando o [mark verde | paralelismo do implemento agrícola] em relação ao solo da fileira. O operador deve ajustar o comprimento do terceiro ponto de forma que o arruador trabalhe perfeitamente plano.
 

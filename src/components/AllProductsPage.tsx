@@ -37,8 +37,8 @@ export default function AllProductsPage({ onSelectProduct, onBackToHome }: AllPr
       id: 'varrefort-s',
       name: mainOverrides['varrefort-s']?.name || 'VarreFort-S',
       description: mainOverrides['varrefort-s']?.description || 'O arruador soprador projetado para trabalhar em baixa rotação — 1.300 a 1.500 RPM — garantindo ventilação máxima, reduzindo bastante as perdas na varrição e economizando combustível a cada hora de trabalho.',
-      availability: 'Pronta Entrega / Sob Consulta',
-      image: mainOverrides['varrefort-s']?.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=600',
+      availability: 'Sob Consulta',
+      image: mainOverrides['varrefort-s']?.image || '/cafezal.jpg',
       badge: mainOverrides['varrefort-s']?.badge !== undefined ? mainOverrides['varrefort-s']?.badge : 'Destaque de Vendas',
       tag: 'Arruador',
       specs: ['Baixo Giro (1300 RPM)', 'Turbina Balanceada', 'Economia de Diesel', 'Sapata Dupla Antichoque']
@@ -57,7 +57,7 @@ export default function AllProductsPage({ onSelectProduct, onBackToHome }: AllPr
       id: 'pasiparts',
       name: mainOverrides['pasiparts']?.name || 'Peças de Reposição & Suporte Técnico',
       description: mainOverrides['pasiparts']?.description || 'Deixamos de lado esperas burocráticas por peças sob encomenda. Por termos estrutura industrial própria, garantimos disponibilidade imediata de engrenagens, eixos vedados e rolamentos — prontos para despacho rápido.',
-      availability: 'Usinagem Própria / Envio em 24h',
+      availability: 'Usinagem Própria / Despacho Rápido',
       image: mainOverrides['pasiparts']?.image || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600',
       badge: mainOverrides['pasiparts']?.badge !== undefined ? mainOverrides['pasiparts']?.badge : 'Original de Fábrica',
       tag: 'Peças',
@@ -325,14 +325,13 @@ export default function AllProductsPage({ onSelectProduct, onBackToHome }: AllPr
               Todos os nossos implementos contam com chassi reforçado com proteção anticorrosiva dupla, assistência técnica remota em tempo recorde de safra e amplo estoque de componentes de reposição imediata.
             </p>
           </div>
-          <a
-            href="https://wa.me/5517991066796?text=Olá,%20gostaria%20de%20solicitar%20uma%20cotação%20para%20a%20minha%20fazenda!"
-            target="_blank"
-            referrerPolicy="no-referrer"
-            className="bg-[#d48743] hover:bg-[#c27a41] text-white px-6 py-3 rounded-xl text-xs font-bold transition flex items-center whitespace-nowrap shrink-0"
+          <button
+            type="button"
+            onClick={() => onSelectProduct('pasiparts')}
+            className="bg-[#d48743] hover:bg-[#c27a41] text-white px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center whitespace-nowrap shrink-0 cursor-pointer shadow-lg active:scale-98"
           >
-            Falar com Engenheiro de Campo
-          </a>
+            Ver Peças & Suporte Técnico
+          </button>
         </div>
 
       </div>
